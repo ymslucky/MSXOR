@@ -1,0 +1,187 @@
+---
+import {
+  t,
+  homePath,
+  pricingPath,
+  productsPath,
+  githubUrl,
+  alternatePath,
+  type Lang,
+} from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const T = t(lang);
+const actions = [
+  { id: 'home', label: T.palette.home, href: homePath(lang), hint: '/' },
+  { id: 'products', label: T.palette.products, href: productsPath(lang), hint: '#products' },
+  { id: 'pricing', label: T.palette.pricing, href: pricingPath(lang), hint: '/pricing' },
+  { id: 'github', label: T.palette.github, href: githubUrl, hint: '↗', external: true },
+  {
+    id: 'lang',
+    label: T.palette.lang,
+    href: alternatePath(path, lang === 'en' ? 'zh' : 'en'),
+    hint: lang === 'en' ? 'zh' : 'en',
+  },
+];
+---
+
+<div
+  id="command-palette"
+  hidden
+  class="fixed inset-0 z-[100] flex items-start justify-center pt-[14vh]"
+  role="dialog"
+  aria-modal="true"
+  aria-label={T.nav.palette}
+>
+  <div id="palette-backdrop" class="absolute inset-0 bg-canvas/70 backdrop-blur-[2px]"></div>
+  <div class="terminal relative w-[min(92vw,560px)]">
+    <div class="terminal-head">
+      <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"
+      ></span>
+      <span class="terminal-title">⌘K</span>
+    </div>
+    <div class="border-b border-line p-3">
+      <input
+        id="palette-input"
+        type="text"
+        class="w-full bg-transparent font-mono text-sm text-ink outline-none placeholder:text-ink-3"
+        placeholder={T.palette.placeholder}
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <ul id="palette-list" class="max-h-[280px] overflow-y-auto p-2" role="listbox">
+      {
+        actions.map((action, index) => (
+          <li role="option" data-label={action.label.toLowerCase()} data-index={index}>
+            <a
+              href={action.href}
+              target={action.external ? '_blank' : undefined}
+              rel={action.external ? 'noopener noreferrer' : undefined}
+              class="palette-item flex items-center justify-between gap-3 rounded px-3 py-2 font-mono text-[13px] text-ink-2 hover:bg-surface-2 hover:text-ink"
+              data-selected={index === 0 ? 'true' : 'false'}
+            >
+              <span>{action.label}</span>
+              <span class="text-ink-3">{action.hint}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="border-t border-line px-3 py-2 font-mono text-[11px] text-ink-3">
+      {T.palette.hint}
+    </div>
+  </div>
+</div>
+
+<script>
+  const palette = document.getElementById('command-palette');
+  const input = document.getElementById('palette-input') as HTMLInputElement | null;
+  const list = document.getElementById('palette-list');
+  const items = () => Array.from(list?.querySelectorAll('li') ?? []);
+
+  function open(): void {
+    if (!palette || !input) return;
+    palette.hidden = false;
+    input.value = '';
+    filter('');
+    input.focus();
+  }
+
+  function close(): void {
+    if (palette) palette.hidden = true;
+  }
+
+  function filter(query: string): void {
+    items().forEach((li) => {
+      const label = li.dataset.label ?? '';
+      li.hidden = !label.includes(query.toLowerCase());
+    });
+    selectFirstVisible();
+  }
+
+  function visibleItems(): HTMLElement[] {
+    return items().filter((li) => !li.hidden) as HTMLElement[];
+  }
+
+  function selected(): HTMLElement | undefined {
+    return visibleItems().find(
+      (li) => li.querySelector('.palette-item')?.getAttribute('data-selected') === 'true',
+    );
+  }
+
+  function selectFirstVisible(): void {
+    items().forEach((li) =>
+      li.querySelector('.palette-item')?.setAttribute('data-selected', 'false'),
+    );
+    visibleItems()[0]?.querySelector('.palette-item')?.setAttribute('data-selected', 'true');
+  }
+
+  function select(delta: number): void {
+    const vis = visibleItems();
+    if (!vis.length) return;
+    const current = selected();
+    const idx = current ? vis.indexOf(current) : 0;
+    const next = vis[Math.min(Math.max(idx + delta, 0), vis.length - 1)];
+    items().forEach((li) =>
+      li.querySelector('.palette-item')?.setAttribute('data-selected', 'false'),
+    );
+    next?.querySelector('.palette-item')?.setAttribute('data-selected', 'true');
+    next?.scrollIntoView({ block: 'nearest' });
+  }
+
+  function activateCurrent(): void {
+    const link = selected()?.querySelector('a');
+    if (link) {
+      close();
+      window.location.assign((link as HTMLAnchorElement).href);
+    }
+  }
+
+  document.getElementById('palette-open')?.addEventListener('click', open);
+  document.getElementById('palette-open-mobile')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.setAttribute('hidden', '');
+    open();
+  });
+  document.getElementById('palette-backdrop')?.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (palette?.hidden) {
+        open();
+      } else {
+        close();
+      }
+      return;
+    }
+    if (palette?.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      select(1);
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      select(-1);
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      activateCurrent();
+    }
+  });
+
+  input?.addEventListener('input', () => filter(input.value));
+</script>
+
+<style>
+  .palette-item[data-selected='true'] {
+    background: var(--color-surface-2);
+    color: var(--color-ink);
+  }
+</style>

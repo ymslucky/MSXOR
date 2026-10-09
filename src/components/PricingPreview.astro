@@ -1,7 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import PlanCard from './plans/PlanCard.astro';
-import Icon from './Icon.astro';
 import { t, pricingPath, type Lang } from '../i18n/ui';
 import { plans } from '../data/plans';
 
@@ -13,28 +12,29 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section data-bg="#04070d" class="relative py-28 md:py-36">
-  <div class="mx-auto max-w-6xl px-6">
-    <SectionHeading
-      lang={lang}
-      label={T.pricingPreview.label}
-      title={T.pricingPreview.title}
-      subtitle={T.pricingPreview.subtitle}
-    />
+<section class="relative bg-canvas-2 py-20 md:py-28">
+  <div class="grid-bg-soft absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.pricingPreview.label}
+        title={T.pricingPreview.title}
+        subtitle={T.pricingPreview.subtitle}
+      />
+    </div>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-3">
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
       {
         plans.map((plan, index) => (
-          <PlanCard plan={plan} lang={lang} mode="preview" delay={index * 0.12} />
+          <PlanCard plan={plan} lang={lang} mode="preview" delay={index * 0.08} />
         ))
       }
     </div>
 
-    <div class="mt-12 text-center" data-animate>
-      <a href={pricingPath(lang)} class="btn-secondary" data-magnetic>
-        {T.pricingPreview.cta}
-        <Icon name="arrow" class="h-4 w-4" />
-      </a>
+    <div class="mt-10 text-center" data-animate>
+      <a href={pricingPath(lang)} class="btn" data-magnetic>{T.pricingPreview.cta} →</a>
     </div>
   </div>
 </section>

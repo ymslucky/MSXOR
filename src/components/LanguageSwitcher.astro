@@ -9,7 +9,9 @@ interface Props {
 const { lang, path } = Astro.props;
 ---
 
-<div class="flex items-center gap-1 rounded-full border border-white/10 p-1 text-xs">
+<div
+  class="flex items-center gap-0.5 rounded border border-line bg-surface p-0.5 font-mono text-[11px]"
+>
   {
     Object.entries(languages).map(([code, label]) => {
       const target = code as Lang;
@@ -21,8 +23,8 @@ const { lang, path } = Astro.props;
           data-lang-link={code}
           aria-current={active ? 'true' : undefined}
           class:list={[
-            'rounded-full px-3 py-1.5 transition-colors',
-            active ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white',
+            'rounded px-2 py-1 transition-colors',
+            active ? 'bg-surface-2 text-ink' : 'text-ink-3 hover:text-ink',
           ]}
         >
           {label}
@@ -33,7 +35,6 @@ const { lang, path } = Astro.props;
 </div>
 
 <script>
-  // Remember explicit language choice so auto-redirect never fights the user.
   document.querySelectorAll<HTMLAnchorElement>('[data-lang-link]').forEach((link) => {
     link.addEventListener('click', () => {
       try {

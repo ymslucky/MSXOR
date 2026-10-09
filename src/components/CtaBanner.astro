@@ -1,46 +1,78 @@
 ---
 import Icon from './Icon.astro';
-import { t, pricingPath, type Lang } from '../i18n/ui';
+import { t, productsPath, githubUrl, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
-  href?: string;
 }
 
-const { lang, href } = Astro.props;
+const { lang } = Astro.props;
 const T = t(lang);
+const cloneCmd = 'git clone https://github.com/ymslucky/MSXOR.git';
 ---
 
-<section class="relative py-14">
-  <div class="mx-auto max-w-6xl px-6">
-    <div
-      class="relative overflow-hidden rounded-3xl border border-white/10 p-12 text-center md:p-20"
-      data-animate
-      data-animate-pop
-    >
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-transparent to-cyan-500/15"
-        aria-hidden="true"
-      >
-      </div>
-      <div
-        class="absolute -bottom-24 left-1/2 -ml-[300px] h-72 w-[600px] rounded-full bg-violet-500/20 blur-[100px]"
-        aria-hidden="true"
-      >
-      </div>
+<section class="relative bg-canvas-2 py-16">
+  <div class="grid-bg-soft absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="card mx-auto max-w-2xl p-8 text-center md:p-10" data-animate>
+      <p class="font-mono text-xs text-accent">~/deploy</p>
+      <h2 class="mt-3 text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+        {T.ctaBanner.title}
+      </h2>
+      <p class="mt-3 text-sm text-ink-2">{T.ctaBanner.subtitle}</p>
 
-      <div class="relative">
-        <h2 class="text-3xl font-semibold tracking-tight text-balance text-white md:text-4xl">
-          {T.ctaBanner.title}
-        </h2>
-        <p class="mx-auto mt-4 max-w-xl text-slate-400">{T.ctaBanner.subtitle}</p>
-        <div class="mt-8 flex justify-center">
-          <a href={href ?? pricingPath(lang)} class="btn-primary" data-magnetic>
-            {T.ctaBanner.cta}
-            <Icon name="arrow" class="h-4 w-4" />
+      <div class="mt-7 flex flex-col items-center gap-4">
+        <button
+          id="copy-cmd"
+          class="btn btn-accent w-full max-w-md justify-between"
+          data-cmd={cloneCmd}
+          data-magnetic
+        >
+          <span class="truncate"><span class="c-prompt">$ </span>{cloneCmd}</span>
+          <span class="kbd" id="copy-state">{T.ctaBanner.copyLabel}</span>
+        </button>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
+            <Icon name="github" class="h-4 w-4" />
+            {T.ctaBanner.viewSource}
           </a>
+          <a href={productsPath(lang)} class="btn" data-magnetic>{T.ctaBanner.browseModules}</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const btn = document.getElementById('copy-cmd');
+  const state = document.getElementById('copy-state');
+  const copied = state?.dataset.copied ?? 'Copied ✓';
+  const idle = state?.textContent ?? 'Copy';
+
+  btn?.addEventListener('click', async () => {
+    const cmd = (btn as HTMLElement).dataset.cmd ?? '';
+    try {
+      await navigator.clipboard.writeText(cmd);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = cmd;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    if (state) state.textContent = copied;
+    gsap.fromTo(btn, { scale: 0.97 }, { scale: 1, duration: 0.15, ease: 'power2.out' });
+    gsap.fromTo(
+      state,
+      { y: -4, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.15, ease: 'power2.out' },
+    );
+    setTimeout(() => {
+      if (state) state.textContent = idle;
+    }, 1600);
+  });
+</script>

@@ -12,31 +12,30 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section data-bg="#07050f" class="relative py-28 md:py-32">
+<section class="relative bg-canvas py-20 md:py-28">
   <div class="mx-auto max-w-6xl px-6">
-    <SectionHeading
-      lang={lang}
-      label={T.pricing.compare}
-      title={T.pricing.compare}
-      subtitle={T.pricing.compareSubtitle}
-    />
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.pricing.compare.toLowerCase()}
+        title={T.pricing.compare}
+        subtitle={T.pricing.compareSubtitle}
+      />
+    </div>
 
-    <div class="mt-14 overflow-x-auto" data-animate>
-      <table class="w-full min-w-[560px] border-separate border-spacing-0 text-left text-sm">
+    <div class="card mt-12 overflow-x-auto" data-animate>
+      <table class="w-full min-w-[560px] border-collapse text-left font-mono text-xs">
         <thead>
-          <tr>
-            <th class="pb-5" scope="col"><span class="sr-only">Feature</span></th>
+          <tr class="border-b border-line bg-surface-2">
+            <th class="px-4 py-3 font-medium text-ink-3" scope="col"
+              ><span class="sr-only">Feature</span></th
+            >
             {
               plans.map((plan) => (
-                <th scope="col" class="pb-5 text-center">
-                  <span
-                    class:list={['font-semibold', plan.popular ? 'text-gradient' : 'text-white']}
-                  >
-                    {plan.name}
-                  </span>
-                  {plan.popular && (
-                    <span class="mt-1 block text-xs text-slate-400">{T.plan.popular}</span>
-                  )}
+                <th scope="col" class="px-4 py-3 text-center font-semibold text-ink">
+                  {plan.name}
+                  {plan.popular && <span class="ml-2 badge badge-accent">{T.plan.popular}</span>}
                 </th>
               ))
             }
@@ -44,15 +43,9 @@ const T = t(lang);
         </thead>
         <tbody>
           {
-            compareRows.map((row, rowIndex) => (
-              <tr>
-                <th
-                  scope="row"
-                  class:list={[
-                    'py-4 pr-4 font-normal text-slate-300',
-                    rowIndex > 0 && 'border-t border-white/8',
-                  ]}
-                >
+            compareRows.map((row) => (
+              <tr class="border-b border-line last:border-0">
+                <th scope="row" class="px-4 py-3 font-normal text-ink-2">
                   {row.label[lang]}
                 </th>
                 {plans.map((plan) => {
@@ -62,18 +55,12 @@ const T = t(lang);
                   return (
                     <td
                       class:list={[
-                        'py-4 text-center',
-                        rowIndex > 0 && 'border-t border-white/8',
-                        plan.popular && 'bg-white/[0.03]',
-                        isCheck && 'text-cyan-300',
-                        isDash && 'text-slate-600',
+                        'px-4 py-3 text-center',
+                        isCheck && 'text-ok',
+                        isDash && 'text-ink-3',
                       ]}
                     >
-                      {isCheck ? (
-                        <Icon name="check" class="mx-auto h-4 w-4" />
-                      ) : (
-                        <span class:list={[isDash && 'select-none']}>{value}</span>
-                      )}
+                      {isCheck ? <Icon name="check" class="mx-auto h-4 w-4" /> : value}
                     </td>
                   );
                 })}

@@ -1,6 +1,5 @@
 ---
-import Icon from './Icon.astro';
-import { t, pricingPath, type Lang } from '../i18n/ui';
+import { t, productsPath, githubUrl, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -11,41 +10,23 @@ const T = t(lang);
 const chars = ['M', 'S', 'X', 'O', 'R'];
 ---
 
-<section
-  data-hero-root
-  class="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-24"
->
-  <!-- backdrop: grid + floating glow orbs -->
-  <div class="bg-grid absolute inset-0" aria-hidden="true"></div>
-  <div class="absolute -top-48 left-1/2 -ml-[410px]" aria-hidden="true">
-    <div class="h-[560px] w-[820px] rounded-full bg-violet-600/25 blur-[140px] animate-float"></div>
-  </div>
-  <div class="absolute top-1/3 left-1/2 ml-[80px]" aria-hidden="true">
-    <div class="h-[420px] w-[560px] rounded-full bg-cyan-500/18 blur-[130px] animate-float-slow">
-    </div>
-  </div>
+<section data-hero-root class="relative overflow-hidden bg-canvas pt-32 pb-16 md:pt-40">
+  <div class="grid-bg absolute inset-0" aria-hidden="true"></div>
 
-  <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
-    <p
-      class="hero-fade glass mx-auto inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide text-slate-300"
-      style="--d: 0.1s"
-    >
-      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-dot"></span>
+  <div class="relative mx-auto max-w-4xl px-6 text-center">
+    <p class="hero-fade badge font-mono" style="--d: 0.05s">
+      <span class="status-dot"></span>
       {T.hero.badge}
     </p>
 
     <h1
       aria-label="MSXOR"
-      class="mt-8 text-[clamp(4.5rem,17vw,11rem)] leading-none font-bold tracking-[-0.04em] text-white"
-      style="text-shadow: 0 0 80px rgb(139 92 246 / 0.35);"
+      class="mt-6 font-mono text-[clamp(3.5rem,13vw,7.5rem)] leading-none font-bold tracking-tight text-ink"
     >
       {
         chars.map((char, index) => (
           <span class="hero-char-mask" aria-hidden="true">
-            <span
-              class:list={['hero-char', char === 'X' && 'text-gradient']}
-              style={`--i: ${index}`}
-            >
+            <span class:list={['hero-char', char === 'X' && 'text-accent']} style={`--i: ${index}`}>
               {char}
             </span>
           </span>
@@ -54,26 +35,100 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
     </h1>
 
     <p
-      class="hero-fade mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-balance text-slate-400 md:text-xl"
-      style="--d: 0.55s"
+      class="hero-fade mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-ink-2 md:text-lg"
+      style="--d: 0.18s"
     >
       {T.hero.tagline}
     </p>
 
-    <div class="hero-fade mt-10 flex flex-wrap items-center justify-center gap-4" style="--d: 0.7s">
-      <a href="#products" class="btn-primary" data-magnetic>
-        {T.hero.ctaPrimary}
-        <Icon name="arrow" class="h-4 w-4" />
-      </a>
-      <a href={pricingPath(lang)} class="btn-secondary" data-magnetic>
+    <div class="hero-fade mt-8 flex flex-wrap items-center justify-center gap-3" style="--d: 0.26s">
+      <code class="code-inline">
+        <span class="c-prompt">$ </span><span id="hero-cli" aria-label={T.hero.cliCommand}
+        ></span><span class="cursor-block" aria-hidden="true"></span>
+      </code>
+    </div>
+
+    <div class="hero-fade mt-6 flex flex-wrap items-center justify-center gap-3" style="--d: 0.32s">
+      <a href={productsPath(lang)} class="btn btn-accent" data-magnetic>{T.hero.ctaPrimary}</a>
+      <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
+          ></path>
+        </svg>
         {T.hero.ctaSecondary}
       </a>
     </div>
-  </div>
 
-  <div
-    class="absolute bottom-10 left-1/2 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/30 to-transparent"
-    aria-hidden="true"
-  >
+    <!-- terminal window -->
+    <div class="hero-fade terminal mx-auto mt-12 max-w-2xl text-left" style="--d: 0.4s">
+      <div class="terminal-head">
+        <span class="terminal-dot"></span><span class="terminal-dot"></span><span
+          class="terminal-dot"></span>
+        <span class="terminal-title">{T.hero.terminalTitle}</span>
+      </div>
+      <div class="terminal-body">
+        {
+          T.hero.terminalLines.map((line) => (
+            <p>
+              <span class="t-prompt">$ </span>
+              <span class="t-cmd">{line.cmd}</span>
+              <br />
+              <span class="t-dim">{line.out}</span>
+            </p>
+          ))
+        }
+        <p>
+          <span class="t-prompt">$ </span><span class="cursor-block" aria-hidden="true"></span>
+        </p>
+      </div>
+      <!-- status bar -->
+      <div
+        class="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line bg-surface-2 px-4 py-2 font-mono text-[11px] text-ink-3"
+      >
+        <span
+          ><span class="t-prompt">ver </span><span class="text-ink-2">{T.hero.statusVersion}</span
+          ></span
+        >
+        <span><span class="t-ok">✓</span> {T.hero.statusBuild}</span>
+        <span class="flex items-center gap-1.5">
+          <span id="gh-stars" data-stars-label="★">★</span>
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="hover:text-accent"
+            >{T.hero.statusStars}</a
+          >
+        </span>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  // Typed CLI line (instant for reduced motion).
+  const el = document.getElementById('hero-cli');
+  const cmd = 'npm install -g msxor';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (el) {
+    if (reduced) {
+      el.textContent = cmd;
+    } else {
+      let i = 0;
+      const tick = () => {
+        el.textContent = cmd.slice(0, ++i);
+        if (i < cmd.length) setTimeout(tick, 34);
+      };
+      setTimeout(tick, 500);
+    }
+  }
+
+  // Live GitHub stars with graceful fallback.
+  const stars = document.getElementById('gh-stars');
+  if (stars) {
+    fetch('https://api.github.com/repos/ymslucky/MSXOR')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d && typeof d.stargazers_count === 'number')
+          stars.textContent = `★ ${d.stargazers_count}`;
+      })
+      .catch(() => undefined);
+  }
+</script>

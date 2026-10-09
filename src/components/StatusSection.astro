@@ -1,0 +1,92 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+
+const requests = [
+  { method: 'GET', path: '/v1/status', code: 200, ms: 12 },
+  { method: 'GET', path: '/v1/drive/files', code: 200, ms: 42 },
+  { method: 'POST', path: '/v1/iam/token', code: 201, ms: 58 },
+  { method: 'GET', path: '/v1/pricing', code: 200, ms: 3 },
+];
+---
+
+<section class="relative bg-canvas py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.status.label}
+        title={T.status.title}
+        subtitle={T.status.subtitle}
+      />
+    </div>
+
+    <div class="mt-12 grid gap-5 lg:grid-cols-[1fr_1.2fr]">
+      <!-- metric tiles -->
+      <div class="grid gap-5 sm:grid-cols-3 lg:grid-cols-1">
+        <div class="card flex items-baseline justify-between gap-3 p-5" data-animate>
+          <span class="font-mono text-xs text-ink-3">{T.status.driveLatency}</span>
+          <span class="font-mono text-xl font-semibold text-ink"
+            ><span data-counter="42">42</span><span class="text-sm text-ink-3">ms</span></span
+          >
+        </div>
+        <div
+          class="card flex items-baseline justify-between gap-3 p-5"
+          data-animate
+          data-animate-delay="0.06"
+        >
+          <span class="font-mono text-xs text-ink-3">{T.status.iamLatency}</span>
+          <span class="font-mono text-xl font-semibold text-ink"
+            ><span data-counter="58">58</span><span class="text-sm text-ink-3">ms</span></span
+          >
+        </div>
+        <div
+          class="card flex items-baseline justify-between gap-3 p-5"
+          data-animate
+          data-animate-delay="0.12"
+        >
+          <span class="font-mono text-xs text-ink-3">{T.status.uptime}</span>
+          <span class="font-mono text-xl font-semibold text-ok">99.98%</span>
+        </div>
+      </div>
+
+      <!-- request log -->
+      <div class="card overflow-hidden" data-animate data-animate-delay="0.08">
+        <div
+          class="flex items-center justify-between border-b border-line bg-surface-2 px-4 py-2.5"
+        >
+          <span class="font-mono text-xs text-ink-2">{T.status.requests}</span>
+          <span class="flex items-center gap-2 font-mono text-[11px] text-ok"
+            ><span class="status-dot"></span>200 OK</span
+          >
+        </div>
+        <ul class="divide-y divide-line font-mono text-[12.5px]">
+          {
+            requests.map((req) => (
+              <li class="flex items-center justify-between gap-3 px-4 py-2.5">
+                <span class="flex items-center gap-2.5">
+                  <span class="badge badge-accent">{req.method}</span>
+                  <span class="text-ink">{req.path}</span>
+                </span>
+                <span class="flex items-center gap-3 text-ink-3">
+                  <span class="t-ok" style="color: var(--color-ok);">
+                    → {req.code}
+                  </span>
+                  <span>{req.ms}ms</span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

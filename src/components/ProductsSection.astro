@@ -13,25 +13,32 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section id="products" data-bg="#07050f" class="relative scroll-mt-24 py-28 md:py-36">
-  <div class="mx-auto max-w-6xl px-6">
-    <SectionHeading
-      lang={lang}
-      label={T.products.label}
-      title={T.products.title}
-      subtitle={T.products.subtitle}
-    />
+<section id="products" class="relative scroll-mt-24 bg-canvas-2 py-20 md:py-28">
+  <div class="grid-bg-soft absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.products.label}
+        title={T.products.title}
+        subtitle={T.products.subtitle}
+      />
+    </div>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-2">
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
       {
         products.map((product, index) => (
-          <ProductCard product={product} lang={lang} delay={index * 0.12} />
+          <ProductCard product={product} lang={lang} delay={index * 0.08} />
         ))
       }
     </div>
 
-    <p class="mt-10 flex items-center justify-center gap-2 text-sm text-slate-400" data-animate>
-      <Icon name="sparkles" class="h-4 w-4 text-violet-300/70" />
+    <p
+      class="mt-8 flex items-center justify-center gap-2 font-mono text-xs text-ink-3"
+      data-animate
+    >
+      <Icon name="sparkles" class="h-4 w-4" />
       {T.products.more}
     </p>
   </div>

@@ -1,5 +1,4 @@
 ---
-import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { t, homePath, pricingPath, productsPath, githubUrl, type Lang } from '../i18n/ui';
@@ -13,66 +12,80 @@ const { lang, path } = Astro.props;
 const T = t(lang);
 ---
 
-<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href={homePath(lang)} aria-label="MSXOR — home">
-      <Logo />
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-150">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
+    <a
+      href={homePath(lang)}
+      class="group flex items-baseline gap-0 font-mono text-sm"
+      aria-label="MSXOR — home"
+    >
+      <span class="text-ink-3 transition-colors group-hover:text-ink-2">~/</span><span
+        class="font-semibold text-ink">msxor</span
+      >
+      <span class="ml-1.5 text-accent">$</span>
     </a>
 
-    <nav class="hidden items-center gap-8 text-sm text-slate-300 md:flex" aria-label="Main">
-      <a class="transition-colors hover:text-white" href={productsPath(lang)}>{T.nav.products}</a>
-      <a class="transition-colors hover:text-white" href={pricingPath(lang)}>{T.nav.pricing}</a>
+    <nav class="hidden items-center gap-6 font-mono text-xs text-ink-2 md:flex" aria-label="Main">
+      <a class="transition-colors hover:text-ink" href={productsPath(lang)}>{T.nav.products}</a>
+      <a class="transition-colors hover:text-ink" href={pricingPath(lang)}>{T.nav.pricing}</a>
+      <span class="text-line-strong select-none">|</span>
+      <button
+        id="palette-open"
+        class="flex items-center gap-2 rounded border border-line bg-surface px-2 py-1 text-ink-3 transition-colors hover:border-line-strong hover:text-ink-2"
+        aria-label={T.nav.palette}
+      >
+        <span aria-hidden="true">⌘K</span>
+      </button>
     </nav>
 
-    <div class="hidden items-center gap-3 md:flex">
+    <div class="hidden items-center gap-2 md:flex">
       <a
         href={githubUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={T.nav.github}
-        class="inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+        class="inline-flex h-7 w-7 items-center justify-center rounded border border-line text-ink-3 transition-colors hover:border-line-strong hover:text-ink"
       >
-        <Icon name="github" class="h-5 w-5" />
+        <Icon name="github" class="h-4 w-4" />
       </a>
       <LanguageSwitcher lang={lang} path={path} />
     </div>
 
     <button
       id="menu-btn"
-      class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-slate-200 transition-colors hover:bg-white/5 md:hidden"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-line text-ink-2 transition-colors hover:bg-surface md:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label={T.nav.menu}
       data-label-open={T.nav.menu}
       data-label-close={T.nav.close}
     >
-      <Icon name="menu" class="menu-open-icon h-5 w-5" />
-      <Icon name="x" class="menu-close-icon hidden h-5 w-5" />
+      <Icon name="menu" class="menu-open-icon h-4 w-4" />
+      <Icon name="x" class="menu-close-icon hidden h-4 w-4" />
     </button>
   </div>
 
-  <div
-    id="mobile-menu"
-    hidden
-    class="border-t border-white/10 bg-ink/95 px-6 py-6 backdrop-blur-xl md:hidden"
-  >
-    <nav class="flex flex-col gap-5 text-base" aria-label="Mobile">
-      <a href="#products" class="text-slate-200 transition-colors hover:text-white"
-        >{T.nav.products}</a
+  <div id="mobile-menu" hidden class="border-t border-line bg-surface px-6 py-5 md:hidden">
+    <nav class="flex flex-col gap-4 font-mono text-sm text-ink-2" aria-label="Mobile">
+      <a href={productsPath(lang)} class="hover:text-ink">{T.nav.products}</a>
+      <a href={pricingPath(lang)} class="hover:text-ink">{T.nav.pricing}</a>
+      <button
+        id="palette-open-mobile"
+        class="flex items-center gap-2 text-left text-ink-3 hover:text-ink"
       >
-      <a href={pricingPath(lang)} class="text-slate-200 transition-colors hover:text-white"
-        >{T.nav.pricing}</a
-      >
+        <span class="kbd">⌘K</span>
+        {T.nav.palette}
+      </button>
       <a
         href={githubUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 text-slate-200 transition-colors hover:text-white"
+        class="flex items-center gap-2 hover:text-ink"
       >
-        <Icon name="github" class="h-5 w-5" />
+        <Icon name="github" class="h-4 w-4" />
         GitHub
       </a>
-      <div class="pt-2">
+      <div class="pt-1">
         <LanguageSwitcher lang={lang} path={path} />
       </div>
     </nav>
@@ -109,9 +122,10 @@ const T = t(lang);
 
 <style>
   #site-header.scrolled {
-    background: rgb(5 6 10 / 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+    background: rgb(255 255 255 / 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-line);
+    box-shadow: 0 1px 3px rgb(15 23 42 / 0.04);
   }
 </style>

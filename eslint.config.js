@@ -10,7 +10,11 @@ export default tseslint.config(
   ...pluginAstro.configs.recommended,
   {
     languageOptions: {
-      globals: { ...globals.browser },
+      globals: {
+        ...globals.browser,
+        __COMMIT_HASH__: 'readonly',
+        __BUILD_TIME__: 'readonly',
+      },
     },
   },
   {

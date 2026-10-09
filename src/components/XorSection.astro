@@ -10,27 +10,25 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section data-bg="#0a0512" class="relative py-28 md:py-36">
+<section class="relative bg-canvas py-20 md:py-28">
   <div class="mx-auto max-w-6xl px-6">
-    <SectionHeading lang={lang} label={T.xor.label} title={T.xor.title} subtitle={T.xor.subtitle} />
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.xor.label}
+        title={T.xor.title}
+        subtitle={T.xor.subtitle}
+      />
+    </div>
 
-    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {
         T.xor.cards.map((card, index) => (
-          <div
-            class="glass group relative overflow-hidden p-6"
-            data-animate
-            data-animate-delay={index * 0.1}
-          >
-            <p class="text-gradient font-mono text-2xl font-bold tracking-tight">{card.expr}</p>
-            <h3 class="mt-4 font-semibold text-white">{card.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-400">{card.body}</p>
-            <span
-              class="pointer-events-none absolute -right-8 -bottom-8 text-[6rem] leading-none font-bold text-white/[0.03] transition-colors duration-500 group-hover:text-white/[0.06]"
-              aria-hidden="true"
-            >
-              {index}
-            </span>
+          <div class="card p-5" data-animate data-animate-delay={index * 0.06}>
+            <p class="font-mono text-lg font-semibold text-accent">{card.expr}</p>
+            <h3 class="mt-3 text-sm font-semibold text-ink">{card.title}</h3>
+            <p class="mt-1.5 text-xs leading-relaxed text-ink-2">{card.body}</p>
           </div>
         ))
       }
