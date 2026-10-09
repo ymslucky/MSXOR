@@ -8,6 +8,7 @@ export interface Product {
   href: string;
   status?: Record<Lang, string>;
   tagline: Record<Lang, string>;
+  features: Record<Lang, string[]>;
 }
 
 export const products: Product[] = [
@@ -17,10 +18,14 @@ export const products: Product[] = [
     icon: 'drive',
     accent: 'cyan',
     href: 'https://drive.msxor.com',
-    status: { en: 'Stable & unbothered', zh: '稳定运行中' },
+    status: { en: 'Stable', zh: '稳定版' },
     tagline: {
-      en: 'An external SSD for your brain. Sync, share, back up — your second memory never calls in sick.',
-      zh: '给你的大脑外接一块 SSD。同步、分享、备份——你的第二段记忆，从不摸鱼。',
+      en: 'Your second memory — encrypted sync, sharing, and backup.',
+      zh: '你的第二记忆：加密同步、分享与备份。',
+    },
+    features: {
+      en: ['End-to-end encryption', 'Multi-device sync', 'One-tap sharing'],
+      zh: ['端到端加密', '多端同步', '秒速分享'],
     },
   },
   {
@@ -29,10 +34,14 @@ export const products: Product[] = [
     icon: 'iam',
     accent: 'violet',
     href: 'https://iam.msxor.com',
-    status: { en: 'Evolving in beta', zh: 'Beta 进化中' },
+    status: { en: 'Beta', zh: '公测中' },
     tagline: {
-      en: 'Passwords keep leaking, so ours asks the only question that matters: are you really you? SSO, MFA, fine-grained access.',
-      zh: '密码天天泄露，所以我们只关心一个终极问题：你到底是不是你。单点登录、多因素认证、细粒度权限，一个不少。',
+      en: 'Identity and access management that stays out of the way.',
+      zh: '身份与访问管理，只做该做的事。',
+    },
+    features: {
+      en: ['Single sign-on (SSO)', 'Multi-factor authentication', 'Fine-grained access control'],
+      zh: ['单点登录 SSO', '多因素认证 MFA', '细粒度权限控制'],
     },
   },
 ];

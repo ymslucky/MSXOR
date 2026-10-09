@@ -1,8 +1,9 @@
 ---
 import Logo from './Logo.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { t, homePath, pricingPath, type Lang } from '../i18n/ui';
+import { t, homePath, pricingPath, githubUrl, type Lang } from '../i18n/ui';
 import { products } from '../data/products';
+import Icon from './Icon.astro';
 
 interface Props {
   lang: Lang;
@@ -67,8 +68,19 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="mt-12 border-t border-white/8 pt-6 text-xs text-slate-400">
+    <div
+      class="mt-12 flex items-center justify-between border-t border-white/8 pt-6 text-xs text-slate-400"
+    >
       <p>{T.footer.rights.replace('2026', String(year))}</p>
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="text-slate-500 transition-colors hover:text-white"
+      >
+        <Icon name="github" class="h-5 w-5" />
+      </a>
     </div>
   </div>
 </footer>

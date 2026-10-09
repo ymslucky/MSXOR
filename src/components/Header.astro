@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { t, homePath, pricingPath, type Lang } from '../i18n/ui';
+import { t, homePath, pricingPath, productsPath, githubUrl, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -20,11 +20,20 @@ const T = t(lang);
     </a>
 
     <nav class="hidden items-center gap-8 text-sm text-slate-300 md:flex" aria-label="Main">
-      <a class="transition-colors hover:text-white" href="#products">{T.nav.products}</a>
+      <a class="transition-colors hover:text-white" href={productsPath(lang)}>{T.nav.products}</a>
       <a class="transition-colors hover:text-white" href={pricingPath(lang)}>{T.nav.pricing}</a>
     </nav>
 
-    <div class="hidden md:block">
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={T.nav.github}
+        class="inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+      >
+        <Icon name="github" class="h-5 w-5" />
+      </a>
       <LanguageSwitcher lang={lang} path={path} />
     </div>
 
@@ -54,6 +63,15 @@ const T = t(lang);
       <a href={pricingPath(lang)} class="text-slate-200 transition-colors hover:text-white"
         >{T.nav.pricing}</a
       >
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 text-slate-200 transition-colors hover:text-white"
+      >
+        <Icon name="github" class="h-5 w-5" />
+        GitHub
+      </a>
       <div class="pt-2">
         <LanguageSwitcher lang={lang} path={path} />
       </div>

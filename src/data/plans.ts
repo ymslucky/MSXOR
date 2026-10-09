@@ -23,23 +23,10 @@ export const plans: Plan[] = [
     id: 'free',
     name: 'Free',
     price: 0,
-    blurb: {
-      en: 'Yes, zero. We have not figured out how money works yet.',
-      zh: '对，你没看错，是 0。我们暂时还没想明白钱是什么。',
-    },
+    blurb: { en: 'Everything to get started.', zh: '起步所需，一应俱全。' },
     features: {
-      en: [
-        '10 GB encrypted storage (legendary tier)',
-        '1 project (the power of focus)',
-        'Community support (probably the founder replying)',
-        'Leave anytime, no hard feelings',
-      ],
-      zh: [
-        '10 GB 加密空间（金色传说起步）',
-        '1 个项目（专注的力量）',
-        '社区支持（大概率是站长本人在回复）',
-        '随时跑路，啊不，随时取消',
-      ],
+      en: ['10 GB encrypted storage', '1 project', 'Core features', 'Community support'],
+      zh: ['10 GB 加密存储', '1 个项目', '核心功能', '社区支持'],
     },
   },
   {
@@ -47,46 +34,30 @@ export const plans: Plan[] = [
     name: 'Free Plus',
     price: 0,
     popular: true,
-    blurb: {
-      en: 'Sounds 100x more premium. Costs exactly 100x more too.',
-      zh: '听起来高级 100 倍，价格也恰好贵了 100 倍。',
-    },
+    blurb: { en: 'More space. Same price.', zh: '更大的空间，同样的价格。' },
     features: {
       en: [
-        '1 TB encrypted storage (a full 100 Free plans)',
-        'Unlimited projects (chaos counts as organization)',
-        'Priority email support (read first, reply eventually)',
-        'This tier is highlighted, so clearly we tried',
+        '1 TB encrypted storage',
+        'Unlimited projects',
+        'Advanced sharing & controls',
+        'Priority email support',
       ],
-      zh: [
-        '1 TB 加密空间（整整 100 个 Free）',
-        '无限项目（乱到找不到也算数）',
-        '优先邮件支持（邮件会先看，回复看缘分）',
-        '这一档有高亮光环，说明我们真的努力了',
-      ],
+      zh: ['1 TB 加密存储', '无限项目', '高级分享与管控', '优先邮件支持'],
     },
   },
   {
     id: 'max',
     name: 'Free Max',
     price: 0,
-    blurb: {
-      en: 'The name says Max. The price says no.',
-      zh: '名字里带 Max，气势拉满；价格原地踏步。',
-    },
+    blurb: { en: 'All capabilities. Nothing held back.', zh: '全部能力，毫无保留。' },
     features: {
       en: [
-        '5 TB encrypted storage (speedrun your backups)',
-        'Everything in Free Plus, missing nothing',
-        'Team sharing (bring friends, freeload together)',
-        'Early access to new specimens',
+        '5 TB encrypted storage',
+        'Everything in Free Plus',
+        'Team & family sharing',
+        'Early access to new products',
       ],
-      zh: [
-        '5 TB 加密空间（量子波动速存）',
-        'Free Plus 的全部，一个不少',
-        '团队共享（拉朋友一起白嫖）',
-        '新标本抢先体验资格',
-      ],
+      zh: ['5 TB 加密存储', '包含 Free Plus 全部功能', '团队与家庭共享', '新品抢先体验'],
     },
   },
 ];
@@ -125,7 +96,7 @@ export const compareRows: CompareRow[] = [
     id: 'support',
     label: { en: 'Support', zh: '支持' },
     values: {
-      free: { en: 'Community (probably the founder)', zh: '社区（大概率是站长本人）' },
+      free: { en: 'Community', zh: '社区' },
       pro: { en: 'Priority email', zh: '优先邮件' },
       max: { en: 'Priority email', zh: '优先邮件' },
     },
@@ -133,11 +104,7 @@ export const compareRows: CompareRow[] = [
   {
     id: 'price',
     label: { en: 'Price', zh: '价格' },
-    values: {
-      free: { en: '$0 forever', zh: '永远 0' },
-      pro: { en: '$0 forever', zh: '永远 0' },
-      max: { en: '$0 forever', zh: '永远 0' },
-    },
+    values: { free: '$0', pro: '$0', max: '$0' },
   },
 ];
 
@@ -148,31 +115,25 @@ export interface FaqItem {
 
 export const faqItems: FaqItem[] = [
   {
-    q: { en: 'Is it really all free?', zh: '真的全免费？' },
-    a: {
-      en: 'Really. Free until we figure out a business model — at the current pace, that is a long free lunch.',
-      zh: '真的。免费到我们想清楚商业模式为止——按目前进度，这顿午餐还长着呢。',
-    },
+    q: { en: 'Is it really free?', zh: '真的免费吗？' },
+    a: { en: 'Yes — every plan is free today.', zh: '是，当前所有计划免费。' },
   },
   {
-    q: { en: 'How do you survive?', zh: '那你们靠什么活下去？' },
+    q: { en: 'Will it stay free?', zh: '以后会收费吗？' },
     a: {
-      en: 'Enthusiasm, sleep deprivation, and faith in the word "what if". Paid features? Later. Or later-later.',
-      zh: '热情、睡眠不足，和对"要不试试"这四个字的信念。付费功能？以后再说，或者以后的以后再说。',
+      en: 'Paid plans may arrive, but early users stay free forever.',
+      zh: '未来会有付费计划，早期用户永久免费。',
     },
   },
   {
     q: { en: 'Is my data safe?', zh: '数据安全吗？' },
     a: {
-      en: 'Encrypted storage, regular backups — safer than your phone camera roll, statistically.',
-      zh: '加密存储、定期备份——统计意义上，比你手机相册安全多了。',
+      en: 'Encrypted storage and regular backups. Your data stays yours.',
+      zh: '加密存储、定期备份，数据始终属于你。',
     },
   },
   {
-    q: { en: 'Can I use it commercially?', zh: '能商用吗？' },
-    a: {
-      en: 'Go for it. If your business takes off, come back and leave a star. That is the entire invoice.',
-      zh: '随便用。哪天商用出息了，记得回来点个 star。这就是全部账单。',
-    },
+    q: { en: 'Can I use it commercially?', zh: '可以商用吗？' },
+    a: { en: 'Yes, for any project.', zh: '可以，用于任何项目都可以。' },
   },
 ];
