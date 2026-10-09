@@ -1,28 +1,50 @@
 @import 'tailwindcss';
 
+/* ============================================================
+   MSXOR design tokens — light engineering blueprint
+   All components must consume tokens; no hardcoded sizes/colors.
+   ============================================================ */
+
 @theme {
-  --font-sans:
+  /* fonts */
+  --font-ui:
     'Inter Variable', 'Noto Sans SC Variable', ui-sans-serif, system-ui, 'PingFang SC',
     'Microsoft YaHei', sans-serif;
   --font-mono:
     'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, 'Courier New', monospace;
 
-  /* light engineering palette */
-  --color-canvas: #fafafa;
-  --color-canvas-2: #f8fafc;
+  /* colors */
+  --color-bg: #fafafa;
+  --color-bg-2: #f8fafc;
   --color-surface: #ffffff;
   --color-surface-2: #f1f5f9;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
-  --color-ink: #0f172a;
-  --color-ink-2: #475569;
-  --color-ink-3: #5d6b7e;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #5d6b7e;
   --color-accent: #0891b2;
   --color-accent-2: #2563eb;
-  --color-ok: #059669;
-  --color-warn: #d97706;
-  --color-err: #dc2626;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --color-success: #059669;
+  --color-code-bg: #f1f5f9;
+  --color-code-text: #0f172a;
 
+  /* legacy aliases (existing components reference these utilities) */
+  --font-sans: var(--font-ui);
+  --color-canvas: var(--color-bg);
+  --color-canvas-2: var(--color-bg-2);
+  --color-line: var(--color-border);
+  --color-line-strong: var(--color-border-strong);
+  --color-ink: var(--color-text-primary);
+  --color-ink-2: var(--color-text-secondary);
+  --color-ink-3: var(--color-text-muted);
+  --color-ok: var(--color-success);
+  --color-warn: var(--color-warning);
+  --color-err: var(--color-error);
+
+  /* motion */
   --animate-blink: blink 2s steps(1) infinite;
   --animate-breathe: breathe 3.2s ease-in-out infinite;
 
@@ -50,30 +72,60 @@
   }
 }
 
-/* ---------------- base ---------------- */
+/* semantic spacing / radius / shadow tokens (not Tailwind-generated) */
+:root {
+  --space-xs: clamp(4px, 0.5vw, 8px);
+  --space-sm: clamp(8px, 1vw, 12px);
+  --space-md: clamp(12px, 1.5vw, 20px);
+  --space-lg: clamp(16px, 2vw, 28px);
+  --space-xl: clamp(24px, 3vw, 40px);
+  --space-2xl: clamp(36px, 5vw, 64px);
+  --space-3xl: clamp(48px, 8vw, 128px);
+
+  --gutter: clamp(16px, 4vw, 64px);
+  --grid-gap: clamp(16px, 2vw, 32px);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+
+  --border-default: 1px solid var(--color-border);
+  --border-strong: 1px solid var(--color-border-strong);
+
+  --shadow-soft: 0 2px 8px rgb(15 23 42 / 0.06);
+  --shadow-hover: 0 4px 16px rgb(15 23 42 / 0.08);
+  --shadow-focus: 0 0 0 4px rgb(8 145 178 / 0.15);
+}
+
+/* ============================================================
+   base
+   ============================================================ */
 
 html {
-  background-color: var(--color-canvas);
+  background-color: var(--color-bg);
 }
 
 body {
+  font-family: var(--font-ui);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.6;
+  color: var(--color-text-primary);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: rgb(8 145 178 / 0.18);
-  color: var(--color-ink);
+  color: var(--color-text-primary);
 }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 4px;
-  box-shadow: 0 0 0 4px rgb(8 145 178 / 0.15);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-focus);
 }
 
-/* Lenis */
+/* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -82,7 +134,79 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
-/* ---------------- reveal gate ---------------- */
+/* ============================================================
+   fluid layout primitives — full width, no max-width
+   ============================================================ */
+
+.shell {
+  width: 100%;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-3xl);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 26vw, 400px), 1fr));
+  gap: var(--grid-gap);
+}
+
+.grid-cards-wide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(320px, 30vw, 480px), 1fr));
+  gap: var(--grid-gap);
+}
+
+/* ============================================================
+   fluid type scale
+   ============================================================ */
+
+.t-hero {
+  font-size: clamp(32px, 6vw, 72px);
+  line-height: 1.05;
+}
+
+.t-h1 {
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.1;
+}
+
+.t-h2 {
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.15;
+}
+
+.t-h3 {
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.4;
+}
+
+.t-body {
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.65;
+}
+
+.t-small {
+  font-size: clamp(12px, 1vw, 13px);
+  line-height: 1.55;
+}
+
+.t-code {
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   reveal gate
+   ============================================================ */
 
 .js [data-animate] {
   opacity: 0;
@@ -94,7 +218,9 @@ html.lenis body {
   }
 }
 
-/* ---------------- hero entrance (<=300ms spring) ---------------- */
+/* ============================================================
+   hero entrance (<=300ms spring)
+   ============================================================ */
 
 @media (prefers-reduced-motion: no-preference) {
   .hero-char-mask {
@@ -140,7 +266,9 @@ html.lenis body {
   }
 }
 
-/* ---------------- blueprint texture & dividers ---------------- */
+/* ============================================================
+   blueprint texture & dividers
+   ============================================================ */
 
 .grid-bg {
   background-image:
@@ -160,32 +288,40 @@ html.lenis body {
 
 .divider-dashed {
   border: 0;
-  border-top: 1px dashed var(--color-line-strong);
+  border-top: 1px dashed var(--color-border-strong);
 }
 
-/* ---------------- cards ---------------- */
+/* ============================================================
+   surfaces (cards) — unified
+   ============================================================ */
 
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: 8px;
+  border: var(--border-default);
+  border-radius: var(--radius-md);
   transition:
-    border-color 0.15s ease-out,
-    box-shadow 0.15s ease-out;
+    border-color 0.18s ease-out,
+    box-shadow 0.18s ease-out;
 }
 
 .card:hover {
-  border-color: var(--color-line-strong);
-  box-shadow: 0 2px 8px rgb(15 23 42 / 0.06);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-soft);
 }
 
-/* ---------------- terminal ---------------- */
+.card-pad {
+  padding: var(--space-lg);
+}
+
+/* ============================================================
+   terminal — unified white-window chrome
+   ============================================================ */
 
 .terminal {
   background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgb(15 23 42 / 0.05);
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
 }
 
@@ -195,49 +331,50 @@ html.lenis body {
   gap: 0.5rem;
   padding: 0.5rem 0.875rem;
   background: var(--color-surface-2);
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: var(--border-default);
 }
 
 .terminal-dot {
   width: 10px;
   height: 10px;
   border-radius: 9999px;
-  border: 1px solid var(--color-line-strong);
+  border: 1px solid var(--color-border-strong);
   background: var(--color-surface);
 }
 
 .terminal-title {
   margin-inline: auto;
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-ink-3);
+  font-size: clamp(11px, 1vw, 12px);
+  color: var(--color-text-muted);
 }
 
 .terminal-body {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 14px);
   line-height: 1.75;
-  color: var(--color-ink);
-  padding: 1rem 1.25rem;
+  color: var(--color-code-text);
+  padding: var(--space-md) var(--space-lg);
   overflow-x: auto;
 }
 
-.terminal-body .t-prompt {
-  color: var(--color-ink-3);
+.terminal-body .t-prompt,
+.code-block .c-prompt {
+  color: var(--color-text-muted);
   user-select: none;
 }
 
 .terminal-body .t-cmd {
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-weight: 600;
 }
 
 .terminal-body .t-ok {
-  color: var(--color-ok);
+  color: var(--color-success);
 }
 
 .terminal-body .t-dim {
-  color: var(--color-ink-3);
+  color: var(--color-text-muted);
 }
 
 .cursor-block {
@@ -250,54 +387,70 @@ html.lenis body {
   animation: var(--animate-blink);
 }
 
-/* ---------------- code ---------------- */
+/* ============================================================
+   code blocks — unified, with optional lang label + copy slot
+   ============================================================ */
 
 .code-block {
+  position: relative;
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: clamp(12px, 1vw, 13.5px);
   line-height: 1.7;
-  color: var(--color-ink);
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-line);
-  border-radius: 6px;
-  padding: 0.625rem 0.875rem;
+  color: var(--color-code-text);
+  background: var(--color-code-bg);
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
   overflow-x: auto;
-}
-
-.code-block .c-prompt {
-  color: var(--color-ink-3);
-  user-select: none;
 }
 
 .code-block .c-flag {
   color: var(--color-accent);
 }
 
+.code-lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-left: var(--border-default);
+  border-bottom: var(--border-default);
+  border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
 .code-inline {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  color: var(--color-ink);
+  color: var(--color-code-text);
   background: var(--color-surface-2);
-  border: 1px solid var(--color-line);
+  border: var(--border-default);
   border-radius: 4px;
   padding: 0.1em 0.4em;
   white-space: nowrap;
 }
 
-/* ---------------- badges & status ---------------- */
+/* ============================================================
+   badges & status — unified
+   ============================================================ */
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: clamp(11px, 0.9vw, 12px);
   line-height: 1;
   padding: 0.3rem 0.55rem;
   border-radius: 4px;
-  border: 1px solid var(--color-line-strong);
+  border: 1px solid var(--color-border-strong);
   background: var(--color-surface-2);
-  color: var(--color-ink-2);
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
@@ -317,47 +470,62 @@ html.lenis body {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: var(--color-ok);
+  background: var(--color-success);
   animation: var(--animate-breathe);
 }
 
 .kbd {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: clamp(11px, 0.9vw, 12px);
   line-height: 1;
   padding: 0.3rem 0.45rem;
   border-radius: 4px;
-  border: 1px solid var(--color-line-strong);
+  border: 1px solid var(--color-border-strong);
   border-bottom-width: 2px;
   background: var(--color-surface);
-  color: var(--color-ink-2);
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
-/* ---------------- buttons ---------------- */
+/* ============================================================
+   buttons — unified, 44px touch targets
+   ============================================================ */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  min-height: 44px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 14px);
   font-weight: 500;
-  border-radius: 6px;
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border-strong);
   background: var(--color-surface);
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   transition:
-    border-color 0.15s ease-out,
-    box-shadow 0.15s ease-out,
-    background-color 0.15s ease-out;
+    border-color 0.18s ease-out,
+    box-shadow 0.18s ease-out,
+    background-color 0.18s ease-out,
+    transform 0.18s ease-out;
 }
 
 .btn:hover {
-  border-color: var(--color-ink-3);
-  box-shadow: 0 1px 4px rgb(15 23 42 / 0.08);
+  border-color: var(--color-text-muted);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn[aria-disabled='true'],
+.btn:disabled {
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .btn-accent {
@@ -369,10 +537,66 @@ html.lenis body {
 .btn-accent:hover {
   border-color: #0e7490;
   background: rgb(8 145 178 / 0.08);
-  box-shadow: 0 0 0 4px rgb(8 145 178 / 0.15);
+  box-shadow: var(--shadow-focus);
 }
 
-/* ---------------- scroll progress ---------------- */
+/* ============================================================
+   responsive tables → stacked cards below 768px
+   ============================================================ */
+
+@media (max-width: 767.98px) {
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table,
+  .responsive-table tbody,
+  .responsive-table tr,
+  .responsive-table th,
+  .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table tr {
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) 0;
+    margin-bottom: var(--space-sm);
+    background: var(--color-surface);
+  }
+
+  .responsive-table th,
+  .responsive-table td {
+    border: 0;
+    padding: 0.5rem var(--space-md);
+    text-align: left;
+  }
+
+  .responsive-table th {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .responsive-table tr > * + * {
+    border-top: 1px dashed var(--color-border);
+  }
+}
+
+/* ============================================================
+   scroll progress
+   ============================================================ */
 
 #scroll-progress {
   position: fixed;

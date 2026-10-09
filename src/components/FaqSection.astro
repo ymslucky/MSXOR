@@ -11,8 +11,8 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section class="relative bg-canvas py-20 md:py-28">
-  <div class="mx-auto max-w-3xl px-6">
+<section class="section relative bg-bg">
+  <div class="shell">
     <hr class="divider-dashed" data-animate />
     <div class="mt-14">
       <SectionHeading lang={lang} label="faq" title={T.pricing.faqTitle} />
@@ -26,19 +26,19 @@ const T = t(lang);
             data-animate
             data-animate-delay={index * 0.05}
           >
-            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-mono text-sm text-ink">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-mono text-sm text-text-primary">
               <span>
                 <span class="text-accent">Q: </span>
                 {item.q[lang]}
               </span>
               <span
-                class="mt-0.5 text-ink-3 transition-transform duration-150 group-open:rotate-45"
+                class="mt-0.5 text-text-muted transition-transform duration-150 group-open:rotate-45"
                 aria-hidden="true"
               >
                 +
               </span>
             </summary>
-            <p class="mt-3 font-mono text-xs leading-relaxed text-ink-2">
+            <p class="mt-3 font-mono text-xs leading-relaxed text-text-secondary">
               <span class="text-ok">A: </span>
               {item.a[lang]}
             </p>

@@ -1,0 +1,44 @@
+---
+interface Props {
+  id?: string;
+  number?: string;
+  label: string;
+  title: string;
+  subtitle?: string;
+  lang?: string;
+  tone?: 'bg-bg' | 'bg-bg-2';
+  grid?: boolean;
+}
+
+const { id, number, label, title, subtitle, lang, tone = 'bg-bg', grid = true } = Astro.props;
+---
+
+<section id={id} class:list={['section relative scroll-mt-24', tone, grid && 'grid-bg-soft']}>
+  <div class="shell">
+    <header data-animate>
+      <p class="flex items-center gap-3 font-mono text-xs text-accent">
+        {
+          number && (
+            <span class="text-text-muted" aria-hidden="true">
+              {number}
+            </span>
+          )
+        }
+        <span class="inline-block h-px w-8 bg-border-strong" aria-hidden="true"></span>
+        {label}
+      </p>
+      <h2 class="t-h2 mt-3 max-w-[70ch] font-semibold tracking-tight text-text-primary" lang={lang}>
+        {title}
+      </h2>
+      {
+        subtitle && (
+          <p class="t-body mt-3 max-w-[70ch] text-pretty text-text-secondary">{subtitle}</p>
+        )
+      }
+    </header>
+    <hr class="divider-dashed mt-8" data-animate />
+    <div class="mt-10">
+      <slot />
+    </div>
+  </div>
+</section>

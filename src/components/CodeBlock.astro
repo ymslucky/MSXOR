@@ -1,0 +1,25 @@
+---
+interface Props {
+  code: string;
+  lang?: string;
+  /** Show the language tag (top-right). */
+  showLang?: boolean;
+  class?: string;
+}
+
+const { code, lang = 'sh', showLang = true, class: className = '' } = Astro.props;
+---
+
+<div class:list={['code-block', className]}>
+  {
+    showLang && (
+      <span class="code-lang" aria-hidden="true">
+        {lang}
+      </span>
+    )
+  }
+  <slot name="prompt">
+    <span class="c-prompt">$ </span>
+  </slot>
+  <slot>{code}</slot>
+</div>

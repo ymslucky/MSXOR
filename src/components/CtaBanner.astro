@@ -11,12 +11,14 @@ const T = t(lang);
 ---
 
 <section class="relative bg-canvas py-14">
-  <div class="mx-auto max-w-2xl px-6">
-    <div class="card p-8 text-center" data-animate>
+  <div class="shell">
+    <div class="card card-pad mx-auto max-w-[720px] p-8 text-center" data-animate>
       <h2 class="text-xl font-semibold tracking-tight text-ink">{T.pricing.title}</h2>
       <p class="mt-2 text-sm text-ink-2">{T.pricing.subtitle}</p>
       <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <a href={sectionPath(lang, 'projects')} class="btn btn-accent" data-magnetic>{T.pricing.cta}</a>
+        <a href={sectionPath(lang, 'projects')} class="btn btn-accent" data-magnetic
+          >{T.pricing.cta}</a
+        >
         <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
           <Icon name="github" class="h-4 w-4" />
           GitHub

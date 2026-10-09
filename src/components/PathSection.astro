@@ -1,5 +1,5 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import SectionShell from './SectionShell.astro';
 import { t, type Lang } from '../i18n/ui';
 import { milestones } from '../data/path';
 
@@ -11,48 +11,45 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section id="path" class="relative scroll-mt-24 bg-canvas py-20 md:py-28">
-  <div class="mx-auto max-w-3xl px-6">
-    <hr class="divider-dashed" data-animate />
-    <div class="mt-14">
-      <SectionHeading
-        lang={lang}
-        label={T.path.label}
-        title={T.path.title}
-        subtitle={T.path.subtitle}
-      />
-    </div>
-
-    <ol
-      class="relative mt-12 space-y-8 before:absolute before:top-1 before:bottom-1 before:left-[7px] before:w-px before:border-l before:border-dashed before:border-line-strong"
-    >
-      {
-        milestones.map((milestone, index) => (
-          <li class="relative pl-8" data-animate data-animate-delay={index * 0.05}>
+<SectionShell
+  id="path"
+  number="05"
+  label={T.path.label}
+  title={T.path.title}
+  subtitle={T.path.subtitle}
+  lang={lang}
+>
+  <ol class="grid grid-cols-1 gap-x-10 md:grid-cols-[200px_1fr]">
+    {
+      milestones.map((milestone, index) => (
+        <li
+          class="col-span-full grid grid-cols-subgap md:col-span-2 md:grid-cols-[200px_1fr] md:gap-x-10"
+          data-animate
+          data-animate-delay={index * 0.05}
+        >
+          <div class="flex items-baseline gap-3 border-b border-dashed border-border py-3 font-mono text-xs md:border-b-0 md:border-r md:py-1.5 md:pr-6">
             <span
               class:list={[
-                'absolute top-1 left-0 h-[15px] w-[15px] rounded-full border-2 bg-surface',
-                milestone.tbd ? 'border-warn' : 'border-accent',
+                'inline-block h-[13px] w-[13px] shrink-0 rounded-full border-2 bg-surface',
+                milestone.tbd ? 'border-warning' : 'border-accent',
               ]}
               aria-hidden="true"
             />
-            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-xs">
-              <span class:list={['font-semibold', milestone.tbd ? 'text-warn' : 'text-accent']}>
-                {milestone.version}
-              </span>
-              <span class="text-ink-3">{milestone.date}</span>
-            </div>
-            <p
-              class:list={[
-                'mt-1.5 text-sm leading-relaxed',
-                milestone.tbd ? 'text-ink-3' : 'text-ink-2',
-              ]}
-            >
-              {milestone.summary[lang]}
-            </p>
-          </li>
-        ))
-      }
-    </ol>
-  </div>
-</section>
+            <span class:list={['font-semibold', milestone.tbd ? 'text-warning' : 'text-accent']}>
+              {milestone.version}
+            </span>
+            <span class="text-text-muted">{milestone.date}</span>
+          </div>
+          <p
+            class:list={[
+              't-body pb-6 md:py-1.5',
+              milestone.tbd ? 'text-text-muted' : 'text-text-secondary',
+            ]}
+          >
+            {milestone.summary[lang]}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</SectionShell>

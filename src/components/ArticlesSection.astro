@@ -1,5 +1,5 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import SectionShell from './SectionShell.astro';
 import { t, type Lang } from '../i18n/ui';
 import { articles } from '../data/articles';
 
@@ -11,42 +11,37 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section id="articles" class="relative scroll-mt-24 bg-canvas py-20 md:py-28">
-  <div class="mx-auto max-w-6xl px-6">
-    <hr class="divider-dashed" data-animate />
-    <div class="mt-14">
-      <SectionHeading
-        lang={lang}
-        label={T.articles.label}
-        title={T.articles.title}
-        subtitle={T.articles.subtitle}
-      />
-    </div>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {
-        articles.map((article, index) => (
-          <article class="card flex flex-col p-6" data-animate data-animate-delay={index * 0.07}>
-            <div class="flex items-center justify-between gap-3">
-              <span class="badge badge-accent">{T.articles.drafting}</span>
-              <span class="font-mono text-[11px] text-ink-3">
-                {article.minutes} {T.articles.minutes}
-              </span>
-            </div>
-            <h3 class="mt-4 text-sm leading-snug font-semibold text-ink">{article.title[lang]}</h3>
-            <p class="mt-2.5 flex-1 text-xs leading-relaxed text-ink-2">{article.summary[lang]}</p>
-            <ul class="mt-4 flex flex-wrap gap-1.5">
-              {article.tags.map((tag) => (
-                <li class="badge">{tag}</li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
-
-    <p class="mt-6 text-center font-mono text-[11px] text-ink-3" data-animate>
-      {T.articles.tbdHint}
-    </p>
+<SectionShell
+  id="articles"
+  number="03"
+  label={T.articles.label}
+  title={T.articles.title}
+  subtitle={T.articles.subtitle}
+  lang={lang}
+>
+  <div class="grid-cards">
+    {
+      articles.map((article, index) => (
+        <article class="card card-pad flex flex-col" data-animate data-animate-delay={index * 0.07}>
+          <div class="flex items-center justify-between gap-3">
+            <span class="badge badge-accent">{T.articles.drafting}</span>
+            <span class="font-mono text-[11px] text-text-muted">
+              {article.minutes} {T.articles.minutes}
+            </span>
+          </div>
+          <h3 class="t-h3 mt-4 leading-snug font-semibold text-text-primary">
+            {article.title[lang]}
+          </h3>
+          <p class="t-small mt-2.5 flex-1 text-text-secondary">{article.summary[lang]}</p>
+          <ul class="mt-4 flex flex-wrap gap-1.5">
+            {article.tags.map((tag) => (
+              <li class="badge">{tag}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
   </div>
-</section>
+
+  <p class="mt-6 font-mono text-[11px] text-text-muted" data-animate>{T.articles.tbdHint}</p>
+</SectionShell>
