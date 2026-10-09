@@ -1,0 +1,16 @@
+---
+import LayoutEn from '../layouts/LayoutEn.astro';
+import PricingPage from '../components/PricingPage.astro';
+import { t } from '../i18n/ui';
+
+const T = t('en');
+---
+
+<LayoutEn
+  lang="en"
+  path="/pricing"
+  title={T.meta.pricing.title}
+  description={T.meta.pricing.description}
+>
+  <PricingPage lang="en" />
+</LayoutEn>

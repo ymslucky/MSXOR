@@ -1,0 +1,17 @@
+---
+import Base from './Base.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path: string;
+}
+
+const { title, description, lang, path } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang} path={path}>
+  <slot />
+</Base>

@@ -1,0 +1,30 @@
+---
+import Base from './Base.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path: string;
+}
+
+const { title, description, lang, path } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang} path={path}>
+  <!--
+    Noto Sans SC ships ~100 unicode-range subsets (~1MB). Loading it would sit in the
+    critical window, so inject it after window load: visitors read in excellent system
+    CJK fonts first, then swap to Noto Sans SC. font-display: swap makes it seamless.
+  -->
+  <script is:inline>
+    window.addEventListener('load', function () {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/fonts/noto.css';
+      document.head.appendChild(link);
+    });
+  </script>
+  <slot />
+</Base>

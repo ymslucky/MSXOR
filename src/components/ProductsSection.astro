@@ -1,0 +1,38 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ProductCard from './ProductCard.astro';
+import Icon from './Icon.astro';
+import { t, type Lang } from '../i18n/ui';
+import { products } from '../data/products';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section id="products" data-bg="#07050f" class="relative scroll-mt-24 py-28 md:py-36">
+  <div class="mx-auto max-w-6xl px-6">
+    <SectionHeading
+      lang={lang}
+      label={T.products.label}
+      title={T.products.title}
+      subtitle={T.products.subtitle}
+    />
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {
+        products.map((product, index) => (
+          <ProductCard product={product} lang={lang} delay={index * 0.12} />
+        ))
+      }
+    </div>
+
+    <p class="mt-10 flex items-center justify-center gap-2 text-sm text-slate-400" data-animate>
+      <Icon name="sparkles" class="h-4 w-4 text-violet-300/70" />
+      {T.products.more}
+    </p>
+  </div>
+</section>

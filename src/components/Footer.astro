@@ -1,0 +1,74 @@
+---
+import Logo from './Logo.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { t, homePath, pricingPath, type Lang } from '../i18n/ui';
+import { products } from '../data/products';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/8 bg-ink">
+  <div class="mx-auto max-w-6xl px-6 py-14">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <a href={homePath(lang)} aria-label="MSXOR — home">
+          <Logo />
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">{T.footer.tagline}</p>
+      </div>
+
+      <nav aria-label={T.footer.site}>
+        <h2 class="text-sm font-semibold text-white">{T.footer.site}</h2>
+        <ul class="mt-4 space-y-3 text-sm text-slate-400">
+          <li>
+            <a class="transition-colors hover:text-white" href={`${homePath(lang)}#products`}
+              >{T.nav.products}</a
+            >
+          </li>
+          <li>
+            <a class="transition-colors hover:text-white" href={pricingPath(lang)}
+              >{T.nav.pricing}</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <nav aria-label={T.footer.products}>
+        <h2 class="text-sm font-semibold text-white">{T.footer.products}</h2>
+        <ul class="mt-4 space-y-3 text-sm text-slate-400">
+          {
+            products.map((product) => (
+              <li>
+                <a
+                  class="transition-colors hover:text-white"
+                  href={product.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {product.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-sm font-semibold text-white">{T.footer.language}</h2>
+        <div class="mt-4">
+          <LanguageSwitcher lang={lang} path={Astro.url.pathname} />
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-white/8 pt-6 text-xs text-slate-400">
+      <p>{T.footer.rights.replace('2026', String(year))}</p>
+    </div>
+  </div>
+</footer>

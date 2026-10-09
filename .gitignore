@@ -18,3 +18,11 @@ Thumbs.db
 
 # misc
 *.log
+
+# local verification artifacts
+.shots/
+lh-*.json
+.font-src/
+lighthouse-home.json
+f-*.json
+f2-*.json

@@ -1,0 +1,30 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+  <svg class="h-8 w-8" viewBox="0 0 64 64" aria-hidden="true">
+    <defs>
+      <linearGradient id="logo-grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#a78bfa"></stop>
+        <stop offset="1" stop-color="#22d3ee"></stop>
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="15" fill="#10131d"></rect>
+    <rect width="64" height="64" rx="15" fill="url(#logo-grad)" opacity="0.12"></rect>
+    <path
+      d="M18 45V19l14 14 14-14v26"
+      fill="none"
+      stroke="url(#logo-grad)"
+      stroke-width="5"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+  <span class="text-lg font-semibold tracking-tight text-white"
+    >MS<span class="text-gradient">X</span>OR</span
+  >
+</span>

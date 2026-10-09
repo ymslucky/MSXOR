@@ -1,0 +1,61 @@
+---
+import { alternatePath, defaultLang, type Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path: string;
+}
+
+const { title, description, lang, path } = Astro.props;
+const site = Astro.site ?? new URL('https://msxor.com');
+const canonical = new URL(path, site).href;
+---
+
+<!-- JS-dependent styles enabled ASAP + zh-browser auto-redirect on English pages -->
+<script is:inline define:vars={{ autoRedirect: lang === defaultLang }}>
+  document.documentElement.classList.add('js');
+  (function () {
+    if (!autoRedirect) return;
+    try {
+      if (sessionStorage.getItem('msxor-lang')) return;
+      const nav = (navigator.language || '').toLowerCase();
+      if (nav.indexOf('zh') === 0) {
+        sessionStorage.setItem('msxor-lang', 'zh');
+        const rest = location.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
+        location.replace('/zh' + (rest === '/' ? '/' : rest));
+      }
+    } catch {
+      /* storage unavailable — auto-redirect is best-effort only */
+    }
+  })();
+</script>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#05060a" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href={canonical} />
+
+<link rel="alternate" hreflang="en" href={new URL(alternatePath(path, 'en'), site).href} />
+<link rel="alternate" hreflang="zh" href={new URL(alternatePath(path, 'zh'), site).href} />
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={new URL(alternatePath(path, defaultLang), site).href}
+/>
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MSXOR" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={new URL('/og.png', site).href} />
+<meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

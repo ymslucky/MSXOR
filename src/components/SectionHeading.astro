@@ -1,0 +1,27 @@
+---
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  label: string;
+  title: string;
+  subtitle?: string;
+  lang: Lang;
+}
+
+const { label, title, subtitle, lang } = Astro.props;
+---
+
+<div class="mx-auto max-w-2xl text-center" data-animate>
+  <p class="text-xs font-semibold tracking-[0.25em] text-cyan-300/90 uppercase">{label}</p>
+  <h2
+    class="mt-4 text-3xl font-semibold tracking-tight text-balance text-white md:text-5xl"
+    lang={lang}
+  >
+    {title}
+  </h2>
+  {
+    subtitle && (
+      <p class="mt-5 text-base leading-relaxed text-pretty text-slate-400 md:text-lg">{subtitle}</p>
+    )
+  }
+</div>

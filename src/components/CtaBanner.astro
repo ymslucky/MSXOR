@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { t, pricingPath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section class="relative py-14">
+  <div class="mx-auto max-w-6xl px-6">
+    <div
+      class="relative overflow-hidden rounded-3xl border border-white/10 p-12 text-center md:p-20"
+      data-animate
+      data-animate-pop
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-transparent to-cyan-500/15"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute -bottom-24 left-1/2 -ml-[300px] h-72 w-[600px] rounded-full bg-violet-500/20 blur-[100px]"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="relative">
+        <h2 class="text-3xl font-semibold tracking-tight text-balance text-white md:text-4xl">
+          {T.ctaBanner.title}
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-400">{T.ctaBanner.subtitle}</p>
+        <div class="mt-8 flex justify-center">
+          <a href={pricingPath(lang)} class="btn-primary" data-magnetic>
+            {T.ctaBanner.cta}
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

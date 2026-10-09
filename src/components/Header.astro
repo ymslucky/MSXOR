@@ -1,0 +1,99 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { t, homePath, pricingPath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const T = t(lang);
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <a href={homePath(lang)} aria-label="MSXOR — home">
+      <Logo />
+    </a>
+
+    <nav class="hidden items-center gap-8 text-sm text-slate-300 md:flex" aria-label="Main">
+      <a class="transition-colors hover:text-white" href="#products">{T.nav.products}</a>
+      <a class="transition-colors hover:text-white" href={pricingPath(lang)}>{T.nav.pricing}</a>
+    </nav>
+
+    <div class="hidden md:block">
+      <LanguageSwitcher lang={lang} path={path} />
+    </div>
+
+    <button
+      id="menu-btn"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-slate-200 transition-colors hover:bg-white/5 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label={T.nav.menu}
+      data-label-open={T.nav.menu}
+      data-label-close={T.nav.close}
+    >
+      <Icon name="menu" class="menu-open-icon h-5 w-5" />
+      <Icon name="x" class="menu-close-icon hidden h-5 w-5" />
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    hidden
+    class="border-t border-white/10 bg-ink/95 px-6 py-6 backdrop-blur-xl md:hidden"
+  >
+    <nav class="flex flex-col gap-5 text-base" aria-label="Mobile">
+      <a href="#products" class="text-slate-200 transition-colors hover:text-white"
+        >{T.nav.products}</a
+      >
+      <a href={pricingPath(lang)} class="text-slate-200 transition-colors hover:text-white"
+        >{T.nav.pricing}</a
+      >
+      <div class="pt-2">
+        <LanguageSwitcher lang={lang} path={path} />
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = btn?.querySelector('.menu-open-icon');
+  const closeIcon = btn?.querySelector('.menu-close-icon');
+
+  function closeMenu(): void {
+    if (!menu || !btn) return;
+    menu.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', btn.dataset.labelOpen ?? 'Open menu');
+    openIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+  }
+
+  btn?.addEventListener('click', () => {
+    if (!menu || !btn) return;
+    const isOpen = !menu.hidden;
+    menu.hidden = isOpen;
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.setAttribute('aria-label', (isOpen ? btn.dataset.labelOpen : btn.dataset.labelClose) ?? '');
+    openIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+</script>
+
+<style>
+  #site-header.scrolled {
+    background: rgb(5 6 10 / 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  }
+</style>

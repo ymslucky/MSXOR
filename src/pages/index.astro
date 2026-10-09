@@ -1,0 +1,17 @@
+---
+import LayoutEn from '../layouts/LayoutEn.astro';
+import Hero from '../components/Hero.astro';
+import ProductsSection from '../components/ProductsSection.astro';
+import PricingPreview from '../components/PricingPreview.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { t } from '../i18n/ui';
+
+const T = t('en');
+---
+
+<LayoutEn lang="en" path="/" title={T.meta.home.title} description={T.meta.home.description}>
+  <Hero lang="en" />
+  <ProductsSection lang="en" />
+  <PricingPreview lang="en" />
+  <CtaBanner lang="en" />
+</LayoutEn>

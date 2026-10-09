@@ -15,15 +15,15 @@ MSXOR 是个人品牌，用于向全球互联网用户宣传自研产品（云�
 
 ## 2. 技术栈
 
-| 层 | 选型 | 理由 |
-|---|---|---|
-| 框架 | Astro 5.x | 纯静态输出、内置 i18n 路由、组件化、Cloudflare Pages 一级支持 |
-| 语言 | TypeScript (strict) | 工程规范 |
-| 样式 | Tailwind CSS v4 | 设计系统、响应式、深浅色模式 |
-| 动画 | GSAP + ScrollTrigger + SplitText | 滚动编舞、文字拆分（均已免费） |
-| 缓动 | 自定义弹簧/弹性 ease | 复刻 anime.js 式"果冻感" |
-| 平滑滚动 | Lenis | 惯性滚动手感 |
-| 代码质量 | ESLint + Prettier | 统一风格 |
+| 层       | 选型                             | 理由                                                          |
+| -------- | -------------------------------- | ------------------------------------------------------------- |
+| 框架     | Astro 5.x                        | 纯静态输出、内置 i18n 路由、组件化、Cloudflare Pages 一级支持 |
+| 语言     | TypeScript (strict)              | 工程规范                                                      |
+| 样式     | Tailwind CSS v4                  | 设计系统、响应式、深浅色模式                                  |
+| 动画     | GSAP + ScrollTrigger + SplitText | 滚动编舞、文字拆分（均已免费）                                |
+| 缓动     | 自定义弹簧/弹性 ease             | 复刻 anime.js 式"果冻感"                                      |
+| 平滑滚动 | Lenis                            | 惯性滚动手感                                                  |
+| 代码质量 | ESLint + Prettier                | 统一风格                                                      |
 
 ## 3. 站点结构与 i18n
 
