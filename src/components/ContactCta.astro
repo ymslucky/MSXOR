@@ -16,38 +16,36 @@ const links = [
 ];
 ---
 
-<section id="contact" class="section relative scroll-mt-24 bg-bg">
-  <div class="shell">
-    <div class="card card-pad mx-auto max-w-[720px] p-8 text-center md:p-10" data-animate>
-      <p class="flex items-center justify-center gap-3 font-mono text-xs text-accent">
-        <span class="text-text-muted" aria-hidden="true">07</span>
-        <span class="inline-block h-px w-8 bg-border-strong" aria-hidden="true"></span>
-        {T.contact.label}
-      </p>
-      <h2 class="t-h2 mt-3 font-semibold tracking-tight text-text-primary">{T.contact.title}</h2>
-      <p class="t-body mt-3 text-text-secondary">{T.contact.subtitle}</p>
+<section id="contact" class="section tone-bordered relative scroll-mt-24 tone-white">
+  <div class="content-grid">
+    <div class="mx-auto max-w-[720px]" data-animate>
+      <p class="section-label">07 / contact</p>
+      <div class="card card-featured card-pad mt-6 p-8 text-center md:p-10">
+        <h2 class="t-h2 font-semibold tracking-tight text-text-primary">{T.contact.title}</h2>
+        <p class="t-body r-65 mx-auto mt-3 text-text-secondary">{T.contact.subtitle}</p>
 
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-        {
-          links.map((link) =>
-            link.ready ? (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-accent"
-                data-magnetic
-              >
-                <Icon name="github" class="h-4 w-4" />
-                {link.label}
-              </a>
-            ) : (
-              <span class="btn cursor-not-allowed" aria-disabled="true" title="TBD">
-                {link.label} · TBD
-              </span>
-            ),
-          )
-        }
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+          {
+            links.map((link) =>
+              link.ready ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-accent"
+                  data-magnetic
+                >
+                  <Icon name="github" class="h-4 w-4" />
+                  {link.label}
+                </a>
+              ) : (
+                <span class="btn cursor-not-allowed" aria-disabled="true" title="TBD">
+                  {link.label} · TBD
+                </span>
+              ),
+            )
+          }
+        </div>
       </div>
     </div>
   </div>

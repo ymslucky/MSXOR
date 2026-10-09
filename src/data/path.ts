@@ -3,6 +3,8 @@ import type { Lang } from '../i18n/ui';
 export interface Milestone {
   version: string;
   date: string;
+  /** Current position — visually emphasized on the timeline. */
+  current?: boolean;
   summary: Record<Lang, string>;
   /** 【待确认】 — milestone needs real data from the owner. */
   tbd?: boolean;
@@ -44,6 +46,7 @@ export const milestones: Milestone[] = [
   },
   {
     version: 'v4.0',
+    current: true,
     date: '2026-10-09',
     summary: {
       en: 'Light blueprint redesign; ⌘K palette; terminal UI; deploy config.',

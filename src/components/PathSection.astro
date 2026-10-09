@@ -18,36 +18,52 @@ const T = t(lang);
   title={T.path.title}
   subtitle={T.path.subtitle}
   lang={lang}
+  split="2/10"
+  tone="cyan"
 >
-  <ol class="grid grid-cols-1 gap-x-10 md:grid-cols-[200px_1fr]">
+  <ol class="grid grid-cols-[28px_1fr] gap-x-5 gap-y-1 sm:grid-cols-[36px_1fr] sm:gap-x-8">
     {
       milestones.map((milestone, index) => (
         <li
-          class="col-span-full grid grid-cols-subgap md:col-span-2 md:grid-cols-[200px_1fr] md:gap-x-10"
+          class="col-span-2 grid grid-cols-subgrid"
           data-animate
           data-animate-delay={index * 0.05}
         >
-          <div class="flex items-baseline gap-3 border-b border-dashed border-border py-3 font-mono text-xs md:border-b-0 md:border-r md:py-1.5 md:pr-6">
+          <div class="relative flex justify-center pt-1">
+            {index > 0 && (
+              <span
+                class="absolute top-0 h-full w-px border-l border-dashed border-border-strong"
+                aria-hidden="true"
+              />
+            )}
             <span
               class:list={[
-                'inline-block h-[13px] w-[13px] shrink-0 rounded-full border-2 bg-surface',
+                'relative z-10 inline-block h-[13px] w-[13px] rounded-full border-2 bg-surface',
                 milestone.tbd ? 'border-warning' : 'border-accent',
+                milestone.current && 'dot-current',
               ]}
               aria-hidden="true"
             />
-            <span class:list={['font-semibold', milestone.tbd ? 'text-warning' : 'text-accent']}>
-              {milestone.version}
-            </span>
-            <span class="text-text-muted">{milestone.date}</span>
           </div>
-          <p
-            class:list={[
-              't-body pb-6 md:py-1.5',
-              milestone.tbd ? 'text-text-muted' : 'text-text-secondary',
-            ]}
+          <div
+            class:list={['pb-8', milestone.current && 'card card-featured card-pad !bg-surface']}
           >
-            {milestone.summary[lang]}
-          </p>
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-xs">
+              <span class:list={['font-semibold', milestone.tbd ? 'text-warning' : 'text-accent']}>
+                {milestone.version}
+              </span>
+              <span class="text-text-muted">{milestone.date}</span>
+              {milestone.current && <span class="badge badge-accent">current</span>}
+            </div>
+            <p
+              class:list={[
+                't-body r-75 mt-1.5',
+                milestone.tbd ? 'text-text-muted' : 'text-text-secondary',
+              ]}
+            >
+              {milestone.summary[lang]}
+            </p>
+          </div>
         </li>
       ))
     }

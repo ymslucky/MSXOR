@@ -18,10 +18,11 @@ const T = t(lang);
   title={T.stack.title}
   subtitle={T.stack.subtitle}
   lang={lang}
-  tone="bg-bg-2"
+  split="5/7"
+  tone="white"
 >
   <div class="card overflow-x-auto" data-animate>
-    <table class="responsive-table w-full min-w-[640px] border-collapse text-left font-mono t-code">
+    <table class="responsive-table w-full min-w-[560px] border-collapse text-left font-mono t-code">
       <thead>
         <tr class="border-b border-border bg-surface-2">
           <th scope="col" class="px-4 py-3 font-medium text-text-muted">{T.stack.category}</th>
@@ -32,8 +33,14 @@ const T = t(lang);
       </thead>
       <tbody>
         {
-          stackRows.map((row) => (
-            <tr class:list={['border-b border-border last:border-0', row.tbd && 'opacity-70']}>
+          stackRows.map((row, index) => (
+            <tr
+              class:list={[
+                'border-b border-border last:border-0',
+                index === 0 && 'row-featured',
+                row.tbd && 'opacity-70',
+              ]}
+            >
               <th scope="row" class="px-4 py-3 font-normal whitespace-nowrap text-text-secondary">
                 {row.category[lang]}
               </th>

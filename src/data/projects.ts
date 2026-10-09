@@ -2,6 +2,8 @@ import type { Lang } from '../i18n/ui';
 
 export interface Project {
   id: string;
+  /** Visual anchor for the section (first card emphasis). */
+  featured?: boolean;
   name: string;
   tagline: Record<Lang, string>;
   /** Rendered only when non-empty. */
@@ -15,6 +17,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'site',
+    featured: true,
     name: 'msxor.dev (this site)',
     tagline: {
       en: 'The evolution log itself: Astro + i18n + GSAP, deployed as pure static assets.',

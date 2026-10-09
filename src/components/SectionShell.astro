@@ -1,44 +1,39 @@
 ---
 interface Props {
   id?: string;
-  number?: string;
+  number: string;
   label: string;
   title: string;
   subtitle?: string;
   lang?: string;
-  tone?: 'bg-bg' | 'bg-bg-2';
-  grid?: boolean;
+  tone?: 'white' | 'gray' | 'cyan';
+  /** Asymmetric split, e.g. '4/8' → header 4 cols, content 8 cols (desktop). */
+  split?: '3/9' | '4/8' | '5/7' | '2/10';
 }
 
-const { id, number, label, title, subtitle, lang, tone = 'bg-bg', grid = true } = Astro.props;
+const { id, number, label, title, subtitle, lang, tone = 'white', split = '4/8' } = Astro.props;
+
+const splitCols: Record<string, string> = {
+  '3/9': 'minmax(200px, 3fr) 9fr',
+  '4/8': 'minmax(240px, 4fr) 8fr',
+  '5/7': 'minmax(280px, 5fr) 7fr',
+  '2/10': 'minmax(140px, 2fr) 10fr',
+};
 ---
 
-<section id={id} class:list={['section relative scroll-mt-24', tone, grid && 'grid-bg-soft']}>
-  <div class="shell">
-    <header data-animate>
-      <p class="flex items-center gap-3 font-mono text-xs text-accent">
-        {
-          number && (
-            <span class="text-text-muted" aria-hidden="true">
-              {number}
-            </span>
-          )
-        }
-        <span class="inline-block h-px w-8 bg-border-strong" aria-hidden="true"></span>
-        {label}
-      </p>
-      <h2 class="t-h2 mt-3 max-w-[70ch] font-semibold tracking-tight text-text-primary" lang={lang}>
-        {title}
-      </h2>
-      {
-        subtitle && (
-          <p class="t-body mt-3 max-w-[70ch] text-pretty text-text-secondary">{subtitle}</p>
-        )
-      }
-    </header>
-    <hr class="divider-dashed mt-8" data-animate />
-    <div class="mt-10">
-      <slot />
+<section id={id} class:list={['section tone-bordered relative scroll-mt-24', `tone-${tone}`]}>
+  <div class="content-grid">
+    <div class="section-split" style={`--split-cols: ${splitCols[split]}`}>
+      <header class="section-rail" data-animate>
+        <p class="section-label">
+          {number} / {label.replace('~/', '')}
+        </p>
+        <h2 class="t-l1 mt-4 text-text-primary" lang={lang}>{title}</h2>
+        {subtitle && <p class="t-body r-65 mt-4 text-pretty text-text-secondary">{subtitle}</p>}
+      </header>
+      <div class="section-content min-w-0">
+        <slot />
+      </div>
     </div>
   </div>
 </section>

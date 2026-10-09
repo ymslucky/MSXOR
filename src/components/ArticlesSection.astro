@@ -18,22 +18,33 @@ const T = t(lang);
   title={T.articles.title}
   subtitle={T.articles.subtitle}
   lang={lang}
+  split="3/9"
+  tone="gray"
 >
-  <div class="grid-cards">
+  <div class="flex flex-col gap-4">
     {
       articles.map((article, index) => (
-        <article class="card card-pad flex flex-col" data-animate data-animate-delay={index * 0.07}>
-          <div class="flex items-center justify-between gap-3">
+        <article
+          class:list={['card card-pad flex flex-col gap-3', index === 0 && 'card-featured']}
+          data-animate
+          data-animate-delay={index * 0.05}
+        >
+          <div class="flex flex-wrap items-center justify-between gap-3">
             <span class="badge badge-accent">{T.articles.drafting}</span>
             <span class="font-mono text-[11px] text-text-muted">
               {article.minutes} {T.articles.minutes}
             </span>
           </div>
-          <h3 class="t-h3 mt-4 leading-snug font-semibold text-text-primary">
+          <h3
+            class:list={[
+              'font-semibold text-text-primary',
+              index === 0 ? 't-h3' : 't-body font-semibold',
+            ]}
+          >
             {article.title[lang]}
           </h3>
-          <p class="t-small mt-2.5 flex-1 text-text-secondary">{article.summary[lang]}</p>
-          <ul class="mt-4 flex flex-wrap gap-1.5">
+          <p class="t-small r-75 text-text-secondary">{article.summary[lang]}</p>
+          <ul class="flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (
               <li class="badge">{tag}</li>
             ))}
@@ -43,5 +54,5 @@ const T = t(lang);
     }
   </div>
 
-  <p class="mt-6 font-mono text-[11px] text-text-muted" data-animate>{T.articles.tbdHint}</p>
+  <p class="mt-5 font-mono text-[11px] text-text-muted" data-animate>{T.articles.tbdHint}</p>
 </SectionShell>

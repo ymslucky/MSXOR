@@ -29,6 +29,7 @@
   --color-error: #dc2626;
   --color-success: #059669;
   --color-code-bg: #f1f5f9;
+  --color-bg-accent: #ecfeff;
   --color-code-text: #0f172a;
 
   /* legacy aliases (existing components reference these utilities) */
@@ -82,8 +83,11 @@
   --space-2xl: clamp(36px, 5vw, 64px);
   --space-3xl: clamp(48px, 8vw, 128px);
 
-  --gutter: clamp(16px, 4vw, 64px);
+  --gutter: clamp(24px, 5vw, 96px);
   --grid-gap: clamp(16px, 2vw, 32px);
+  --section-space: clamp(80px, 10vw, 160px);
+  --module-space: clamp(48px, 6vw, 96px);
+  --element-space: clamp(16px, 2vw, 32px);
 
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -144,7 +148,7 @@ html.lenis body {
 }
 
 .section {
-  padding-block: var(--space-3xl);
+  padding-block: var(--section-space);
 }
 
 .grid-12 {
@@ -608,4 +612,118 @@ html.lenis body {
   transform-origin: 0 50%;
   transform: scaleX(0);
   z-index: 60;
+}
+
+/* ============================================================
+   v7 — full-width visual order: asymmetric dual-layer system
+   ============================================================ */
+
+/* content grid inside full-bleed section backgrounds */
+.content-grid {
+  width: 100%;
+  padding-inline: var(--gutter);
+}
+
+/* asymmetric section split: header rail + content zone */
+.section-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--module-space, clamp(48px, 6vw, 96px));
+  row-gap: var(--element-space);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .section-split {
+    grid-template-columns: var(--split-cols, minmax(240px, 4fr) 8fr);
+  }
+
+  .section-split > .section-rail {
+    position: sticky;
+    top: calc(var(--header-h, 64px) + var(--element-space));
+  }
+}
+
+/* bracketed blueprint label: [ 01 / NOW ] */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.9vw, 13px);
+  line-height: 1;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+
+.section-label::before {
+  content: '[';
+  color: var(--color-border-strong);
+}
+
+.section-label::after {
+  content: ']';
+  color: var(--color-border-strong);
+}
+
+/* L1 section title (per hierarchy spec) */
+.t-l1 {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* reading widths — limit text measure, never the container */
+.r-55 {
+  max-width: 55ch;
+}
+.r-65 {
+  max-width: 65ch;
+}
+.r-75 {
+  max-width: 75ch;
+}
+
+/* visual anchor — one per section */
+.card-featured {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 1px rgb(8 145 178 / 0.25),
+    var(--shadow-soft);
+}
+
+.card-featured:hover {
+  border-color: #0e7490;
+  box-shadow:
+    0 0 0 1px rgb(8 145 178 / 0.4),
+    var(--shadow-hover);
+}
+
+.row-featured {
+  border-left: 3px solid var(--color-accent);
+  background: linear-gradient(90deg, rgb(8 145 178 / 0.05), transparent 40%);
+}
+
+.dot-current {
+  box-shadow: 0 0 0 4px rgb(8 145 178 / 0.2);
+}
+
+/* section tone helpers */
+.tone-white {
+  background: var(--color-surface);
+}
+.tone-gray {
+  background: var(--color-bg-2);
+}
+.tone-cyan {
+  background: var(--color-bg-accent);
+}
+.tone-bordered {
+  border-top: 1px solid var(--color-border);
+}
+
+/* header height token */
+:root {
+  --header-h: clamp(56px, 5vw, 72px);
 }

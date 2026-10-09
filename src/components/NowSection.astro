@@ -10,9 +10,9 @@ const { lang } = Astro.props;
 const T = t(lang);
 const isTbd = (body: string) => body.includes('[TBD]') || body.includes('【待确认】');
 const items = [
-  { title: T.now.buildingTitle, body: T.now.buildingBody },
-  { title: T.now.learningTitle, body: T.now.learningBody },
-  { title: T.now.experimentingTitle, body: T.now.experimentingBody },
+  { title: T.now.buildingTitle, body: T.now.buildingBody, anchor: true },
+  { title: T.now.learningTitle, body: T.now.learningBody, anchor: false },
+  { title: T.now.experimentingTitle, body: T.now.experimentingBody, anchor: false },
 ];
 ---
 
@@ -23,18 +23,24 @@ const items = [
   title={T.now.title}
   subtitle={T.now.subtitle}
   lang={lang}
+  split="4/8"
+  tone="gray"
 >
   <div class="grid-cards">
     {
       items.map((item, index) => (
-        <div class="card card-pad" data-animate data-animate-delay={index * 0.06}>
+        <div
+          class:list={['card card-pad', item.anchor && 'card-featured']}
+          data-animate
+          data-animate-delay={index * 0.06}
+        >
           <div class="flex items-center justify-between gap-3">
             <h3 class="t-h3 font-mono font-semibold text-text-primary">{item.title}</h3>
             {isTbd(item.body) && <span class="badge badge-accent">{T.now.tbd}</span>}
           </div>
           <p
             class:list={[
-              't-body mt-3',
+              't-body r-65 mt-3',
               isTbd(item.body) ? 'text-text-muted' : 'text-text-secondary',
             ]}
           >
@@ -44,6 +50,5 @@ const items = [
       ))
     }
   </div>
-
-  <p class="mt-6 font-mono text-[11px] text-text-muted" data-animate>{T.now.updated}</p>
+  <p class="mt-5 font-mono text-[11px] text-text-muted" data-animate>{T.now.updated}</p>
 </SectionShell>
