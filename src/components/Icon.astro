@@ -1,15 +1,30 @@
 ---
 interface Props {
-  name: 'cloud' | 'shield' | 'globe' | 'arrow' | 'check' | 'menu' | 'x' | 'plus' | 'sparkles';
+  name:
+    | 'drive'
+    | 'iam'
+    | 'evolution'
+    | 'globe'
+    | 'arrow'
+    | 'check'
+    | 'menu'
+    | 'x'
+    | 'plus'
+    | 'sparkles';
   class?: string;
 }
 
 const { name, class: className = 'h-5 w-5' } = Astro.props;
 
 const icons: Record<Props['name'], string> = {
-  cloud:
-    '<path d="M6.8 19a4.8 4.8 0 1 1 .45-9.57 6.2 6.2 0 0 1 12.05 1.76A3.9 3.9 0 0 1 18.1 19H6.8Z"/>',
-  shield: '<path d="M12 3 5 6v5.2c0 4.4 2.95 8.2 7 9.4 4.05-1.2 7-5 7-9.4V6l-7-3Z"/>',
+  // Drive = 外接大脑：芯片
+  drive:
+    '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3.5V7M15 3.5V7M9 17v3.5M15 17v3.5M3.5 9H7M3.5 15H7M17 9h3.5M17 15h3.5"/><rect x="10.2" y="10.2" width="3.6" height="3.6" rx="1"/>',
+  // IAM = 身份门：盾牌 + X
+  iam: '<path d="M12 3 5 6v5.2c0 4.4 2.95 8.2 7 9.4 4.05-1.2 7-5 7-9.4V6l-7-3Z"/><path d="m9.6 9.6 4.8 4.8m0-4.8-4.8 4.8"/>',
+  // 进化门：X + 四端节点
+  evolution:
+    '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/><circle cx="6.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="6.5" cy="17.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="17.5" r="1.5" fill="currentColor" stroke="none"/>',
   globe:
     '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9s1.4-6.4 3.9-9Z"/>',
   arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',

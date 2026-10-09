@@ -17,12 +17,15 @@ const { class: className = '' } = Astro.props;
     <rect width="64" height="64" rx="15" fill="#10131d"></rect>
     <rect width="64" height="64" rx="15" fill="url(#logo-grad)" opacity="0.12"></rect>
     <path
-      d="M18 45V19l14 14 14-14v26"
+      d="M21 21 43 43M43 21 21 43"
       fill="none"
       stroke="url(#logo-grad)"
       stroke-width="5"
-      stroke-linecap="round"
-      stroke-linejoin="round"></path>
+      stroke-linecap="round"></path>
+    <circle cx="21" cy="21" r="3" fill="#a78bfa"></circle>
+    <circle cx="43" cy="21" r="3" fill="#22d3ee"></circle>
+    <circle cx="21" cy="43" r="3" fill="#22d3ee"></circle>
+    <circle cx="43" cy="43" r="3" fill="#a78bfa"></circle>
   </svg>
   <span class="text-lg font-semibold tracking-tight text-white"
     >MS<span class="text-gradient">X</span>OR</span

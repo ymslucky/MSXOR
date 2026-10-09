@@ -4,9 +4,10 @@ import { t, pricingPath, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  href?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, href } = Astro.props;
 const T = t(lang);
 ---
 
@@ -34,7 +35,7 @@ const T = t(lang);
         </h2>
         <p class="mx-auto mt-4 max-w-xl text-slate-400">{T.ctaBanner.subtitle}</p>
         <div class="mt-8 flex justify-center">
-          <a href={pricingPath(lang)} class="btn-primary" data-magnetic>
+          <a href={href ?? pricingPath(lang)} class="btn-primary" data-magnetic>
             {T.ctaBanner.cta}
             <Icon name="arrow" class="h-4 w-4" />
           </a>

@@ -1,6 +1,7 @@
 ---
 import LayoutEn from '../layouts/LayoutEn.astro';
 import Hero from '../components/Hero.astro';
+import XorSection from '../components/XorSection.astro';
 import ProductsSection from '../components/ProductsSection.astro';
 import PricingPreview from '../components/PricingPreview.astro';
 import CtaBanner from '../components/CtaBanner.astro';
@@ -11,6 +12,7 @@ const T = t('en');
 
 <LayoutEn lang="en" path="/" title={T.meta.home.title} description={T.meta.home.description}>
   <Hero lang="en" />
+  <XorSection lang="en" />
   <ProductsSection lang="en" />
   <PricingPreview lang="en" />
   <CtaBanner lang="en" />

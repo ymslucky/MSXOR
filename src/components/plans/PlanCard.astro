@@ -1,6 +1,6 @@
 ---
 import { type Plan } from '../../data/plans';
-import { t, type Lang } from '../../i18n/ui';
+import { t, productsPath, type Lang } from '../../i18n/ui';
 
 interface Props {
   plan: Plan;
@@ -67,7 +67,7 @@ const features = mode === 'preview' ? plan.features[lang].slice(0, 3) : plan.fea
   {
     mode === 'full' && (
       <a
-        href="https://drive.msxor.com"
+        href={productsPath(lang)}
         target="_blank"
         rel="noopener noreferrer"
         class:list={[

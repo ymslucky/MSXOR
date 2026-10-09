@@ -1,0 +1,39 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section data-bg="#0a0512" class="relative py-28 md:py-36">
+  <div class="mx-auto max-w-6xl px-6">
+    <SectionHeading lang={lang} label={T.xor.label} title={T.xor.title} subtitle={T.xor.subtitle} />
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        T.xor.cards.map((card, index) => (
+          <div
+            class="glass group relative overflow-hidden p-6"
+            data-animate
+            data-animate-delay={index * 0.1}
+          >
+            <p class="text-gradient font-mono text-2xl font-bold tracking-tight">{card.expr}</p>
+            <h3 class="mt-4 font-semibold text-white">{card.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">{card.body}</p>
+            <span
+              class="pointer-events-none absolute -right-8 -bottom-8 text-[6rem] leading-none font-bold text-white/[0.03] transition-colors duration-500 group-hover:text-white/[0.06]"
+              aria-hidden="true"
+            >
+              {index}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

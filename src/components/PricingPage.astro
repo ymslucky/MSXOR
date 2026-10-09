@@ -3,7 +3,7 @@ import PlanCard from './plans/PlanCard.astro';
 import ComparisonTable from './ComparisonTable.astro';
 import FaqSection from './FaqSection.astro';
 import CtaBanner from './CtaBanner.astro';
-import { t, type Lang } from '../i18n/ui';
+import { t, productsPath, type Lang } from '../i18n/ui';
 import { plans } from '../data/plans';
 
 interface Props {
@@ -40,4 +40,4 @@ const T = t(lang);
 
 <ComparisonTable lang={lang} />
 <FaqSection lang={lang} />
-<CtaBanner lang={lang} />
+<CtaBanner lang={lang} href={productsPath(lang)} />

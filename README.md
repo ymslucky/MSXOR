@@ -1,5 +1,7 @@
 # MSXOR Brand Site
 
+English | [简体中文](README.zh.md)
+
 Personal brand site for MSXOR — bilingual (EN/ZH), animation-rich, pure-static, built with Astro.
 
 ## Stack
