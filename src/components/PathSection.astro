@@ -1,0 +1,58 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { t, type Lang } from '../i18n/ui';
+import { milestones } from '../data/path';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section id="path" class="relative scroll-mt-24 bg-canvas py-20 md:py-28">
+  <div class="mx-auto max-w-3xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.path.label}
+        title={T.path.title}
+        subtitle={T.path.subtitle}
+      />
+    </div>
+
+    <ol
+      class="relative mt-12 space-y-8 before:absolute before:top-1 before:bottom-1 before:left-[7px] before:w-px before:border-l before:border-dashed before:border-line-strong"
+    >
+      {
+        milestones.map((milestone, index) => (
+          <li class="relative pl-8" data-animate data-animate-delay={index * 0.05}>
+            <span
+              class:list={[
+                'absolute top-1 left-0 h-[15px] w-[15px] rounded-full border-2 bg-surface',
+                milestone.tbd ? 'border-warn' : 'border-accent',
+              ]}
+              aria-hidden="true"
+            />
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-xs">
+              <span class:list={['font-semibold', milestone.tbd ? 'text-warn' : 'text-accent']}>
+                {milestone.version}
+              </span>
+              <span class="text-ink-3">{milestone.date}</span>
+            </div>
+            <p
+              class:list={[
+                'mt-1.5 text-sm leading-relaxed',
+                milestone.tbd ? 'text-ink-3' : 'text-ink-2',
+              ]}
+            >
+              {milestone.summary[lang]}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

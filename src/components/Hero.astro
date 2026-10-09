@@ -1,5 +1,5 @@
 ---
-import { t, productsPath, githubUrl, type Lang } from '../i18n/ui';
+import { t, githubUrl, sectionPath, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -7,7 +7,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const T = t(lang);
-const chars = ['M', 'S', 'X', 'O', 'R'];
 ---
 
 <section data-hero-root class="relative overflow-hidden bg-canvas pt-32 pb-16 md:pt-40">
@@ -24,7 +23,7 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
       class="mt-6 font-mono text-[clamp(3.5rem,13vw,7.5rem)] leading-none font-bold tracking-tight text-ink"
     >
       {
-        chars.map((char, index) => (
+        ['M', 'S', 'X', 'O', 'R'].map((char, index) => (
           <span class="hero-char-mask" aria-hidden="true">
             <span class:list={['hero-char', char === 'X' && 'text-accent']} style={`--i: ${index}`}>
               {char}
@@ -38,29 +37,46 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
       class="hero-fade mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-ink-2 md:text-lg"
       style="--d: 0.18s"
     >
-      {T.hero.tagline}
+      {T.hero.positioning}
     </p>
 
-    <div class="hero-fade mt-8 flex flex-wrap items-center justify-center gap-3" style="--d: 0.26s">
-      <code class="code-inline">
-        <span class="c-prompt">$ </span><span id="hero-cli" aria-label={T.hero.cliCommand}
-        ></span><span class="cursor-block" aria-hidden="true"></span>
-      </code>
+    <!-- live status row -->
+    <div
+      class="hero-fade mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-xs text-ink-3"
+      style="--d: 0.24s"
+    >
+      <span>{T.hero.statusBuilding}</span>
+      <span class="text-line-strong select-none">·</span>
+      <span>{T.hero.statusLearning}</span>
+      <span class="text-line-strong select-none">·</span>
+      <span>{T.hero.statusIterating}</span>
     </div>
 
-    <div class="hero-fade mt-6 flex flex-wrap items-center justify-center gap-3" style="--d: 0.32s">
-      <a href={productsPath(lang)} class="btn btn-accent" data-magnetic>{T.hero.ctaPrimary}</a>
-      <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path
-            d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
-          ></path>
-        </svg>
-        {T.hero.ctaSecondary}
-      </a>
+    <!-- CTAs + copyable command -->
+    <div class="hero-fade mt-8 flex flex-col items-center gap-4" style="--d: 0.3s">
+      <button
+        id="copy-cmd"
+        class="btn btn-accent w-full max-w-md justify-between"
+        data-cmd={T.hero.cloneCmd}
+        data-magnetic
+      >
+        <span class="truncate"><span class="c-prompt">$ </span>{T.hero.cloneCmd}</span>
+        <span class="kbd" id="copy-state">{T.hero.copyLabel}</span>
+      </button>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href={sectionPath(lang, 'now')} class="btn" data-magnetic>{T.hero.ctaPrimary} →</a>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="btn" data-magnetic>
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
+            ></path>
+          </svg>
+          {T.hero.ctaSecondary}
+        </a>
+      </div>
     </div>
 
-    <!-- terminal window -->
+    <!-- log terminal -->
     <div class="hero-fade terminal mx-auto mt-12 max-w-2xl text-left" style="--d: 0.4s">
       <div class="terminal-head">
         <span class="terminal-dot"></span><span class="terminal-dot"></span><span
@@ -82,7 +98,6 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
           <span class="t-prompt">$ </span><span class="cursor-block" aria-hidden="true"></span>
         </p>
       </div>
-      <!-- status bar -->
       <div
         class="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line bg-surface-2 px-4 py-2 font-mono text-[11px] text-ink-3"
       >
@@ -92,7 +107,7 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
         >
         <span><span class="t-ok">✓</span> {T.hero.statusBuild}</span>
         <span class="flex items-center gap-1.5">
-          <span id="gh-stars" data-stars-label="★">★</span>
+          <span id="gh-stars">★</span>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="hover:text-accent"
             >{T.hero.statusStars}</a
           >
@@ -103,24 +118,32 @@ const chars = ['M', 'S', 'X', 'O', 'R'];
 </section>
 
 <script>
-  // Typed CLI line (instant for reduced motion).
-  const el = document.getElementById('hero-cli');
-  const cmd = 'npm install -g msxor';
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (el) {
-    if (reduced) {
-      el.textContent = cmd;
-    } else {
-      let i = 0;
-      const tick = () => {
-        el.textContent = cmd.slice(0, ++i);
-        if (i < cmd.length) setTimeout(tick, 34);
-      };
-      setTimeout(tick, 500);
-    }
-  }
+  import { gsap } from 'gsap';
 
-  // Live GitHub stars with graceful fallback.
+  const btn = document.getElementById('copy-cmd');
+  const state = document.getElementById('copy-state');
+  const copied = state?.dataset.copied ?? 'Copied ✓';
+  const idle = state?.textContent ?? 'Copy';
+
+  btn?.addEventListener('click', async () => {
+    const cmd = (btn as HTMLElement).dataset.cmd ?? '';
+    try {
+      await navigator.clipboard.writeText(cmd);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = cmd;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    if (state) state.textContent = copied;
+    gsap.fromTo(btn, { scale: 0.97 }, { scale: 1, duration: 0.15, ease: 'power2.out' });
+    setTimeout(() => {
+      if (state) state.textContent = idle;
+    }, 1600);
+  });
+
   const stars = document.getElementById('gh-stars');
   if (stars) {
     fetch('https://api.github.com/repos/ymslucky/MSXOR')

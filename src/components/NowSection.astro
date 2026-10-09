@@ -1,0 +1,54 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+const isTbd = (body: string) => body.includes('[TBD]') || body.includes('【待确认】');
+const items = [
+  { title: T.now.buildingTitle, body: T.now.buildingBody },
+  { title: T.now.learningTitle, body: T.now.learningBody },
+  { title: T.now.experimentingTitle, body: T.now.experimentingBody },
+];
+---
+
+<section id="now" class="relative scroll-mt-24 bg-canvas py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.now.label}
+        title={T.now.title}
+        subtitle={T.now.subtitle}
+      />
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        items.map((item, index) => (
+          <div class="card p-6" data-animate data-animate-delay={index * 0.06}>
+            <div class="flex items-center justify-between gap-3">
+              <h3 class="font-mono text-sm font-semibold text-ink">{item.title}</h3>
+              {isTbd(item.body) && <span class="badge badge-accent">{T.now.tbd}</span>}
+            </div>
+            <p
+              class:list={[
+                'mt-3 text-sm leading-relaxed',
+                isTbd(item.body) ? 'text-ink-3' : 'text-ink-2',
+              ]}
+            >
+              {item.body}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-6 text-center font-mono text-[11px] text-ink-3" data-animate>{T.now.updated}</p>
+  </div>
+</section>

@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { t, homePath, pricingPath, productsPath, githubUrl, type Lang } from '../i18n/ui';
+import { t, homePath, sectionPath, githubUrl, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -10,6 +10,14 @@ interface Props {
 
 const { lang, path } = Astro.props;
 const T = t(lang);
+const navItems = [
+  { label: T.nav.now, id: 'now' },
+  { label: T.nav.projects, id: 'projects' },
+  { label: T.nav.articles, id: 'articles' },
+  { label: T.nav.stack, id: 'stack' },
+  { label: T.nav.path, id: 'path' },
+  { label: T.nav.about, id: 'about' },
+];
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-150">
@@ -25,9 +33,14 @@ const T = t(lang);
       <span class="ml-1.5 text-accent">$</span>
     </a>
 
-    <nav class="hidden items-center gap-6 font-mono text-xs text-ink-2 md:flex" aria-label="Main">
-      <a class="transition-colors hover:text-ink" href={productsPath(lang)}>{T.nav.products}</a>
-      <a class="transition-colors hover:text-ink" href={pricingPath(lang)}>{T.nav.pricing}</a>
+    <nav class="hidden items-center gap-5 font-mono text-xs text-ink-2 lg:flex" aria-label="Main">
+      {
+        navItems.map((item) => (
+          <a class="transition-colors hover:text-accent" href={sectionPath(lang, item.id)}>
+            {item.label}
+          </a>
+        ))
+      }
       <span class="text-line-strong select-none">|</span>
       <button
         id="palette-open"
@@ -38,7 +51,7 @@ const T = t(lang);
       </button>
     </nav>
 
-    <div class="hidden items-center gap-2 md:flex">
+    <div class="hidden items-center gap-2 lg:flex">
       <a
         href={githubUrl}
         target="_blank"
@@ -53,7 +66,7 @@ const T = t(lang);
 
     <button
       id="menu-btn"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-line text-ink-2 transition-colors hover:bg-surface md:hidden"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-line text-ink-2 transition-colors hover:bg-surface lg:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label={T.nav.menu}
@@ -65,13 +78,21 @@ const T = t(lang);
     </button>
   </div>
 
-  <div id="mobile-menu" hidden class="border-t border-line bg-surface px-6 py-5 md:hidden">
-    <nav class="flex flex-col gap-4 font-mono text-sm text-ink-2" aria-label="Mobile">
-      <a href={productsPath(lang)} class="hover:text-ink">{T.nav.products}</a>
-      <a href={pricingPath(lang)} class="hover:text-ink">{T.nav.pricing}</a>
+  <div id="mobile-menu" hidden class="border-t border-line bg-surface px-6 py-5 lg:hidden">
+    <nav
+      class="grid grid-cols-2 gap-x-4 gap-y-3.5 font-mono text-sm text-ink-2"
+      aria-label="Mobile"
+    >
+      {
+        navItems.map((item) => (
+          <a href={sectionPath(lang, item.id)} class="hover:text-ink">
+            {item.label}
+          </a>
+        ))
+      }
       <button
         id="palette-open-mobile"
-        class="flex items-center gap-2 text-left text-ink-3 hover:text-ink"
+        class="col-span-2 flex items-center gap-2 text-left text-ink-3 hover:text-ink"
       >
         <span class="kbd">⌘K</span>
         {T.nav.palette}
@@ -80,12 +101,12 @@ const T = t(lang);
         href={githubUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-2 hover:text-ink"
+        class="col-span-2 flex items-center gap-2 hover:text-ink"
       >
         <Icon name="github" class="h-4 w-4" />
         GitHub
       </a>
-      <div class="pt-1">
+      <div class="col-span-2 pt-1">
         <LanguageSwitcher lang={lang} path={path} />
       </div>
     </nav>

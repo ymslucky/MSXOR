@@ -1,0 +1,36 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ProjectCard from './ProjectCard.astro';
+import { t, type Lang } from '../i18n/ui';
+import { projects } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section id="projects" class="relative scroll-mt-24 bg-canvas-2 py-20 md:py-28">
+  <div class="grid-bg-soft absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.projects.label}
+        title={T.projects.title}
+        subtitle={T.projects.subtitle}
+      />
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.map((project, index) => (
+          <ProjectCard project={project} lang={lang} delay={index * 0.07} />
+        ))
+      }
+    </div>
+  </div>
+</section>

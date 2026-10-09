@@ -3,7 +3,7 @@ import PlanCard from './plans/PlanCard.astro';
 import ComparisonTable from './ComparisonTable.astro';
 import FaqSection from './FaqSection.astro';
 import CtaBanner from './CtaBanner.astro';
-import { t, productsPath, type Lang } from '../i18n/ui';
+import { t, type Lang } from '../i18n/ui';
 import { plans } from '../data/plans';
 
 interface Props {
@@ -14,30 +14,28 @@ const { lang } = Astro.props;
 const T = t(lang);
 ---
 
-<section data-bg="#05060a" class="relative overflow-hidden pt-40 pb-16 md:pt-48">
-  <div class="bg-grid absolute inset-0" aria-hidden="true"></div>
-  <div class="absolute -top-40 left-1/2 -ml-[380px]" aria-hidden="true">
-    <div class="h-[480px] w-[760px] rounded-full bg-violet-600/20 blur-[140px] animate-float"></div>
-  </div>
+<section class="relative overflow-hidden bg-canvas pt-32 pb-10 md:pt-40">
+  <div class="grid-bg absolute inset-0" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate>
-    <h1 class="text-4xl font-bold tracking-tight text-balance text-white md:text-6xl">
+    <p class="font-mono text-xs text-accent">~/pricing</p>
+    <h1 class="mt-3 font-mono text-4xl font-bold tracking-tight text-ink md:text-6xl">
       {T.pricing.title}
     </h1>
-    <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-slate-400">
+    <p class="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-pretty text-ink-2 md:text-base">
       {T.pricing.subtitle}
     </p>
-    <p class="mt-4 text-xs tracking-wide text-slate-400 uppercase">{T.plan.perMonth}</p>
+    <p class="badge badge-ok mt-5">{T.plan.perMonth}</p>
   </div>
 </section>
 
-<section data-bg="#05060a" class="relative pb-8">
+<section class="bg-canvas pb-6">
   <div class="mx-auto max-w-6xl px-6">
-    <div class="grid gap-6 pt-8 md:grid-cols-3">
-      {plans.map((plan, index) => <PlanCard plan={plan} lang={lang} delay={index * 0.12} />)}
+    <div class="grid gap-5 pt-8 md:grid-cols-3">
+      {plans.map((plan, index) => <PlanCard plan={plan} lang={lang} delay={index * 0.08} />)}
     </div>
   </div>
 </section>
 
 <ComparisonTable lang={lang} />
 <FaqSection lang={lang} />
-<CtaBanner lang={lang} href={productsPath(lang)} />
+<CtaBanner lang={lang} />

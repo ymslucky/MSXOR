@@ -1,0 +1,57 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { t, type Lang } from '../i18n/ui';
+import { stackRows } from '../data/stack';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const T = t(lang);
+---
+
+<section id="stack" class="relative scroll-mt-24 bg-canvas-2 py-20 md:py-28">
+  <div class="grid-bg-soft absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
+    <hr class="divider-dashed" data-animate />
+    <div class="mt-14">
+      <SectionHeading
+        lang={lang}
+        label={T.stack.label}
+        title={T.stack.title}
+        subtitle={T.stack.subtitle}
+      />
+    </div>
+
+    <div class="card mt-12 overflow-x-auto" data-animate>
+      <table class="w-full min-w-[640px] border-collapse text-left font-mono text-xs">
+        <thead>
+          <tr class="border-b border-line bg-surface-2">
+            <th scope="col" class="px-4 py-3 font-medium text-ink-3">{T.stack.category}</th>
+            <th scope="col" class="px-4 py-3 font-medium text-ink-3">{T.stack.tool}</th>
+            <th scope="col" class="px-4 py-3 font-medium text-ink-3">{T.stack.use}</th>
+            <th scope="col" class="px-4 py-3 font-medium text-ink-3">{T.stack.alt}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            stackRows.map((row) => (
+              <tr class:list={['border-b border-line last:border-0', row.tbd && 'opacity-70']}>
+                <th scope="row" class="px-4 py-3 font-normal whitespace-nowrap text-ink-2">
+                  {row.category[lang]}
+                </th>
+                <td class="px-4 py-3 font-semibold whitespace-nowrap text-ink">
+                  {row.tool}
+                  {row.tbd && <span class="badge badge-accent ml-2">{T.stack.tbd}</span>}
+                </td>
+                <td class="px-4 py-3 text-ink-2">{row.use[lang]}</td>
+                <td class="px-4 py-3 text-ink-3">{row.alt}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

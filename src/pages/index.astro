@@ -1,11 +1,13 @@
 ---
 import LayoutEn from '../layouts/LayoutEn.astro';
 import Hero from '../components/Hero.astro';
-import XorSection from '../components/XorSection.astro';
-import StatusSection from '../components/StatusSection.astro';
-import ProductsSection from '../components/ProductsSection.astro';
-import PricingPreview from '../components/PricingPreview.astro';
-import CtaBanner from '../components/CtaBanner.astro';
+import NowSection from '../components/NowSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import ArticlesSection from '../components/ArticlesSection.astro';
+import StackSection from '../components/StackSection.astro';
+import PathSection from '../components/PathSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ContactCta from '../components/ContactCta.astro';
 import { t } from '../i18n/ui';
 
 const T = t('en');
@@ -13,9 +15,11 @@ const T = t('en');
 
 <LayoutEn lang="en" path="/" title={T.meta.home.title} description={T.meta.home.description}>
   <Hero lang="en" />
-  <XorSection lang="en" />
-  <ProductsSection lang="en" />
-  <StatusSection lang="en" />
-  <PricingPreview lang="en" />
-  <CtaBanner lang="en" />
+  <NowSection lang="en" />
+  <ProjectsSection lang="en" />
+  <ArticlesSection lang="en" />
+  <StackSection lang="en" />
+  <PathSection lang="en" />
+  <AboutSection lang="en" />
+  <ContactCta lang="en" />
 </LayoutEn>

@@ -1,13 +1,5 @@
 ---
-import {
-  t,
-  homePath,
-  pricingPath,
-  productsPath,
-  githubUrl,
-  alternatePath,
-  type Lang,
-} from '../i18n/ui';
+import { t, sectionPath, githubUrl, alternatePath, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -17,9 +9,22 @@ interface Props {
 const { lang, path } = Astro.props;
 const T = t(lang);
 const actions = [
-  { id: 'home', label: T.palette.home, href: homePath(lang), hint: '/' },
-  { id: 'products', label: T.palette.products, href: productsPath(lang), hint: '#products' },
-  { id: 'pricing', label: T.palette.pricing, href: pricingPath(lang), hint: '/pricing' },
+  { id: 'now', label: T.palette.now, href: sectionPath(lang, 'now'), hint: '#now' },
+  {
+    id: 'projects',
+    label: T.palette.projects,
+    href: sectionPath(lang, 'projects'),
+    hint: '#projects',
+  },
+  {
+    id: 'articles',
+    label: T.palette.articles,
+    href: sectionPath(lang, 'articles'),
+    hint: '#writing',
+  },
+  { id: 'stack', label: T.palette.stack, href: sectionPath(lang, 'stack'), hint: '#stack' },
+  { id: 'path', label: T.palette.path, href: sectionPath(lang, 'path'), hint: '#path' },
+  { id: 'about', label: T.palette.about, href: sectionPath(lang, 'about'), hint: '#about' },
   { id: 'github', label: T.palette.github, href: githubUrl, hint: '↗', external: true },
   {
     id: 'lang',

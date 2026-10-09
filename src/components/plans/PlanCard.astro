@@ -1,6 +1,6 @@
 ---
 import { type Plan } from '../../data/plans';
-import { t, productsPath, type Lang } from '../../i18n/ui';
+import { t, sectionPath, type Lang } from '../../i18n/ui';
 
 interface Props {
   plan: Plan;
@@ -44,7 +44,7 @@ const features = mode === 'preview' ? plan.features[lang].slice(0, 3) : plan.fea
   {
     mode === 'full' && (
       <a
-        href={productsPath(lang)}
+        href={sectionPath(lang, 'projects')}
         class:list={['mt-6 btn', plan.popular ? 'btn-accent' : '']}
         data-magnetic
       >

@@ -1,8 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { t, homePath, pricingPath, productsPath, githubUrl, type Lang } from '../i18n/ui';
-import { products } from '../data/products';
+import { t, homePath, sectionPath, githubUrl, type Lang } from '../i18n/ui';
+import { projects } from '../data/projects';
 
 interface Props {
   lang: Lang;
@@ -14,6 +14,14 @@ const year = new Date().getFullYear();
 const commit = __COMMIT_HASH__;
 const buildTime = __BUILD_TIME__;
 const buildDate = buildTime.slice(0, 10);
+const sectionLinks = [
+  { label: T.nav.now, id: 'now' },
+  { label: T.nav.projects, id: 'projects' },
+  { label: T.nav.articles, id: 'articles' },
+  { label: T.nav.stack, id: 'stack' },
+  { label: T.nav.path, id: 'path' },
+  { label: T.nav.about, id: 'about' },
+];
 ---
 
 <footer class="border-t border-line bg-surface">
@@ -35,31 +43,34 @@ const buildDate = buildTime.slice(0, 10);
         </div>
       </div>
 
-      <nav aria-label={T.footer.site}>
-        <h2 class="font-mono text-xs font-semibold text-ink">{T.footer.site}</h2>
-        <ul class="mt-3 space-y-2 font-mono text-xs text-ink-2">
-          <li>
-            <a class="hover:text-accent" href={productsPath(lang)}>{T.nav.products}</a>
-          </li>
-          <li>
-            <a class="hover:text-accent" href={pricingPath(lang)}>{T.nav.pricing}</a>
-          </li>
+      <nav aria-label={T.footer.sections}>
+        <h2 class="font-mono text-xs font-semibold text-ink">{T.footer.sections}</h2>
+        <ul class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 font-mono text-xs text-ink-2">
+          {
+            sectionLinks.map((link) => (
+              <li>
+                <a class="hover:text-accent" href={sectionPath(lang, link.id)}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
-      <nav aria-label={T.footer.products}>
-        <h2 class="font-mono text-xs font-semibold text-ink">{T.footer.products}</h2>
+      <nav aria-label={T.footer.site}>
+        <h2 class="font-mono text-xs font-semibold text-ink">{T.footer.site}</h2>
         <ul class="mt-3 space-y-2 font-mono text-xs text-ink-2">
           {
-            products.map((product) => (
+            projects.map((project) => (
               <li>
                 <a
                   class="hover:text-accent"
-                  href={product.href}
+                  href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {product.name}
+                  {project.name}
                 </a>
               </li>
             ))
