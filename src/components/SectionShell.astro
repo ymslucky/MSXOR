@@ -1,8 +1,6 @@
 ---
 interface Props {
   id?: string;
-  number: string;
-  label: string;
   title: string;
   subtitle?: string;
   lang?: string;
@@ -11,7 +9,7 @@ interface Props {
   split?: '3/9' | '4/8' | '5/7' | '2/10';
 }
 
-const { id, number, label, title, subtitle, lang, tone = 'white', split = '4/8' } = Astro.props;
+const { id, title, subtitle, lang, tone = 'white', split = '4/8' } = Astro.props;
 
 const splitCols: Record<string, string> = {
   '3/9': 'minmax(200px, 3fr) 9fr',
@@ -25,9 +23,6 @@ const splitCols: Record<string, string> = {
   <div class="content-grid">
     <div class="section-split" style={`--split-cols: ${splitCols[split]}`}>
       <header class="section-rail" data-animate>
-        <p class="section-label">
-          {number} / {label.replace('~/', '')}
-        </p>
         <h2 class="t-l1 mt-4 text-text-primary" lang={lang}>{title}</h2>
         {subtitle && <p class="t-body r-65 mt-4 text-pretty text-text-secondary">{subtitle}</p>}
       </header>
@@ -37,3 +32,5 @@ const splitCols: Record<string, string> = {
     </div>
   </div>
 </section>
+
+

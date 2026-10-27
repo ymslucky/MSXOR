@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './barlow.css';
 
 /* ============================================================
    MSXOR design tokens — light engineering blueprint
@@ -10,27 +11,29 @@
   --font-ui:
     'Inter Variable', 'Noto Sans SC Variable', ui-sans-serif, system-ui, 'PingFang SC',
     'Microsoft YaHei', sans-serif;
+  --font-display:
+    'Barlow Condensed', 'Inter Variable', 'Noto Sans SC Variable', ui-sans-serif, sans-serif;
   --font-mono:
     'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, 'Courier New', monospace;
 
   /* colors */
-  --color-bg: #100f0c;
-  --color-bg-2: #151310;
-  --color-surface: #1b1814;
-  --color-surface-2: #232019;
-  --color-border: #2e2a22;
-  --color-border-strong: #453f33;
-  --color-text-primary: #f2ede2;
-  --color-text-secondary: #c4bcab;
-  --color-text-muted: #93897a;
-  --color-accent: #f5a524;
-  --color-accent-2: #d98a0b;
-  --color-warning: #f5a524;
-  --color-error: #e5645a;
-  --color-success: #7bc96f;
-  --color-code-bg: #232019;
-  --color-bg-accent: #1e1810;
-  --color-code-text: #f2ede2;
+  --color-bg: #f1eee5;
+  --color-bg-2: #faf8f2;
+  --color-surface: #faf8f2;
+  --color-surface-2: #eae6d9;
+  --color-border: #d8d3c4;
+  --color-border-strong: #b5ad99;
+  --color-text-primary: #22342e;
+  --color-text-secondary: #5a6b62;
+  --color-text-muted: #7d8a82;
+  --color-accent: #b25a32;
+  --color-accent-2: #22342e;
+  --color-warning: #b25a32;
+  --color-error: #a9442c;
+  --color-success: #4a7c59;
+  --color-code-bg: #eae6d9;
+  --color-bg-accent: #f5efe2;
+  --color-code-text: #22342e;
 
   /* legacy aliases (existing components reference these utilities) */
   --font-sans: var(--font-ui);
@@ -64,11 +67,11 @@
     0%,
     100% {
       opacity: 1;
-      box-shadow: 0 0 0 0 rgb(123 201 111 / 0.35);
+      box-shadow: 0 0 0 0 rgb(74 124 89 / 0.35);
     }
     50% {
       opacity: 0.65;
-      box-shadow: 0 0 0 4px rgb(123 201 111 / 0);
+      box-shadow: 0 0 0 4px rgb(74 124 89 / 0);
     }
   }
 }
@@ -96,9 +99,9 @@
   --border-default: 1px solid var(--color-border);
   --border-strong: 1px solid var(--color-border-strong);
 
-  --shadow-soft: 0 4px 14px rgb(0 0 0 / 0.35);
-  --shadow-hover: 0 8px 24px rgb(0 0 0 / 0.45);
-  --shadow-focus: 0 0 0 4px rgb(245 165 36 / 0.18);
+  --shadow-soft: 0 3px 10px rgb(34 52 46 / 0.08);
+  --shadow-hover: 0 8px 22px rgb(34 52 46 / 0.14);
+  --shadow-focus: 0 0 0 4px rgb(178 90 50 / 0.18);
 }
 
 /* ============================================================
@@ -140,7 +143,7 @@ body {
 }
 
 ::selection {
-  background: rgb(245 165 36 / 0.22);
+  background: rgb(178 90 50 / 0.22);
   color: var(--color-text-primary);
 }
 
@@ -196,8 +199,11 @@ html.lenis body {
    ============================================================ */
 
 .t-hero {
-  font-size: clamp(32px, 6vw, 72px);
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 9vw, 120px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .t-h1 {
@@ -298,12 +304,11 @@ html.lenis body {
 
 .grid-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(245 165 36 / 0.07), transparent 60%),
-    repeating-linear-gradient(to bottom, rgb(242 237 226 / 0.02) 0 1px, transparent 1px 3px);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(178 90 50 / 0.05), transparent 60%);
 }
 
 .grid-bg-soft {
-  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgb(245 165 36 / 0.04), transparent 60%);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgb(178 90 50 / 0.04), transparent 60%);
 }
 
 .divider-dashed {
@@ -475,15 +480,15 @@ html.lenis body {
 }
 
 .badge-ok {
-  border-color: rgb(123 201 111 / 0.4);
-  background: rgb(123 201 111 / 0.1);
-  color: #7bc96f;
+  border-color: rgb(74 124 89 / 0.45);
+  background: rgb(74 124 89 / 0.1);
+  color: #4a7c59;
 }
 
 .badge-accent {
-  border-color: rgb(245 165 36 / 0.4);
-  background: rgb(245 165 36 / 0.1);
-  color: #f5a524;
+  border-color: rgb(178 90 50 / 0.4);
+  background: rgb(178 90 50 / 0.08);
+  color: #b25a32;
 }
 
 .status-dot {
@@ -549,15 +554,16 @@ html.lenis body {
 }
 
 .btn-accent {
-  border-color: var(--color-accent);
-  color: #f5a524;
-  background: rgb(245 165 36 / 0.08);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg);
+  background: var(--color-text-primary);
 }
 
 .btn-accent:hover {
-  border-color: #f5a524;
-  background: rgb(245 165 36 / 0.14);
-  box-shadow: var(--shadow-focus);
+  border-color: var(--color-text-primary);
+  background: var(--color-text-primary);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 /* ============================================================
@@ -684,10 +690,12 @@ html.lenis body {
 
 /* L1 section title (per hierarchy spec) */
 .t-l1 {
-  font-size: clamp(32px, 4vw, 56px);
-  line-height: 1.08;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 /* reading widths — limit text measure, never the container */
@@ -705,24 +713,24 @@ html.lenis body {
 .card-featured {
   border-color: var(--color-accent);
   box-shadow:
-    0 0 0 1px rgb(245 165 36 / 0.3),
+    0 0 0 1px rgb(178 90 50 / 0.25),
     var(--shadow-soft);
 }
 
 .card-featured:hover {
-  border-color: #f5a524;
+  border-color: #b25a32;
   box-shadow:
-    0 0 0 1px rgb(245 165 36 / 0.45),
+    0 0 0 1px rgb(178 90 50 / 0.4),
     var(--shadow-hover);
 }
 
 .row-featured {
   border-left: 1px solid var(--color-border-strong);
-  background: linear-gradient(90deg, rgb(245 165 36 / 0.07), transparent 40%);
+  background: linear-gradient(90deg, rgb(178 90 50 / 0.06), transparent 40%);
 }
 
 .dot-current {
-  box-shadow: 0 0 0 4px rgb(245 165 36 / 0.2);
+  box-shadow: 0 0 0 4px rgb(178 90 50 / 0.18);
 }
 
 /* section tone helpers */
@@ -743,6 +751,9 @@ html.lenis body {
 :root {
   --header-h: clamp(56px, 5vw, 72px);
 }
+
+
+
 
 
 

@@ -1,48 +1,47 @@
-# Design system — Phosphor Noir
+# Design system — Evolution Garage
 
 <!-- impeccable:design-schema@1 -->
 
 ```json
 {
-  "world": "Phosphor Noir",
+  "world": "Evolution Garage",
   "surface": {
-    "bg": "#100F0C",
-    "bg2": "#151310",
-    "surface": "#1B1814",
-    "surface2": "#232019",
-    "border": "#2E2A22",
-    "borderStrong": "#453F33"
+    "bg": "#F1EEE5",
+    "bg2": "#FAF8F2",
+    "surface": "#FAF8F2",
+    "surface2": "#EAE6D9",
+    "border": "#D8D3C4",
+    "borderStrong": "#B5AD99"
   },
   "ink": {
-    "primary": "#F2EDE2",
-    "secondary": "#C4BCAB",
-    "muted": "#93897A"
+    "primary": "#22342E",
+    "secondary": "#5A6B62",
+    "muted": "#7D8A82"
   },
   "accent": {
-    "primary": "#F5A524",
-    "deep": "#D98A0B",
-    "wash": "#1E1810"
+    "primary": "#B25A32",
+    "deep": "#9C4A26"
   },
   "status": {
-    "success": "#7BC96F",
-    "warning": "#F5A524",
-    "error": "#E5645A"
+    "success": "#4A7C59",
+    "warning": "#B25A32",
+    "error": "#A9442C"
   },
   "fonts": {
+    "display": "Barlow Condensed 700/900（大标题，拉丁）",
     "ui": "Inter Variable + Noto Sans SC",
-    "mono": "JetBrains Mono Variable（代码/数据/终端专用，不作装饰）"
+    "mono": "JetBrains Mono（仅代码/数据/终端点缀）"
   },
-  "radius": { "sm": "6px", "md": "10px" },
-  "elevation": "1px border 为主；阴影仅在浮层与 hover 出现，带 y 轴偏移",
-  "motion": "入口为一次性弹簧/揭示；滚动节奏由 data-animate 驱动；reduced-motion 全降级"
+  "radius": { "sm": "6px", "md": "12px" },
+  "elevation": "1px 边线为主；hover 用带 y 偏移的柔和阴影",
+  "motion": "GSAP/Lenis 骨架；ease-out-quint 入场；reduced-motion 全降级"
 }
 ```
 
 ## Rules
-- 深色是本世界的默认与唯一模式；不做浅色皮肤。
-- 琥珀色只给信号：强调词、当前态、光标、CTA 描边。不用于大面积填充或渐变文字。
-- 等宽字体只用于终端、代码、路径、数据与标签（~/now 这类世界内语义），正文一律 Inter/Noto。
-- 章节底色交替使用 bg / surface 两档，以 1px 边线分隔，不用彩色 wash 大面积铺底。
-- 阴影必须带偏移与模糊；禁止零偏移光晕式装饰阴影。
-- 焦点环、选区、滚动条、光标都从琥珀/磷光绿体系取色。
-- 动画保留现有 GSAP/Lenis 编排骨架，强调一次性入场与滚动揭示，不堆循环动效。
+- 暖纸底 + 墨绿深字是唯一模式；不做暗色皮肤。
+- 陶土橙只给信号：强调、CTA hover 阴影、当前态；不做大面积铺色或渐变文字。
+- 大标题用 Barlow Condensed 大写压缩体；中文回退 Noto Sans SC。
+- 章节只用 纸色/奶油 两档底色 + 1px 分隔线；不用网格纹理。
+- CTA 主按钮为墨绿实底纸色字；次级为 1px 描边。
+- 等宽字体不作为装饰；终端元素只保留 Hero 一张小型「维修单」。

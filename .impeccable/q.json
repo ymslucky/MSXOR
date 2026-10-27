@@ -1,0 +1,68 @@
+{
+  "title": "MSXOR 下一轮视觉方向",
+  "question": "上一版琥珀终端你不满意——选一个方向，我按它重做。",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "纸白工程志",
+      "kicker": "THE ROLL",
+      "lineage": "瑞士国际主义 + 工程手册",
+      "thesis": "明亮纸白底、严格网格、大号无衬线标题，终端只作为点缀色块出现。",
+      "palette": ["#fafaf7", "#111418", "#2563eb", "#e2e5e9"],
+      "materials": ["纯排版", "1px 规则线", "大面积留白"],
+      "viewport": "巨型标题压住首屏，章节用编号与细线分区，几乎不用卡片。",
+      "risk": "若字号层级不够大胆，会滑向平庸的企业白皮风。"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "暗房 editorial",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "暗房杂志 + 终端元素降级为点缀",
+      "thesis": "保留深底但换成近黑冷灰，衬线大标题、编辑部式排版，琥珀只做一两个高光。",
+      "palette": ["#0d0f11", "#e8e6e1", "#8a8f98", "#f5a524"],
+      "materials": ["衬线 display 字体", "细腻网格", "低饱和"],
+      "viewport": "杂志封面式 Hero：衬线标题+一行导语，滚动进入编辑部章节。",
+      "risk": "深底若对比不足，移动端阅读会吃力。"
+    },
+    {
+      "id": "challenger-teletext",
+      "kind": "challenger",
+      "catalogId": "broadcast-programming-teletext-service",
+      "label": "Teletext 服务",
+      "verdict": "competitive",
+      "lineage": "广播电视图文页",
+      "thesis": "站点即一串编号图文页：高饱和蓝底、等宽像素感、行式布局。",
+      "palette": ["#0000c0", "#ffff00", "#00c000", "#ffffff"],
+      "materials": ["块状马赛克", "行式索引"],
+      "case": "与终端叙事高度契合，但趣味优先于精致。",
+      "risk": "复古感过强时显得像玩具。"
+    },
+    {
+      "id": "challenger-microfiche",
+      "kind": "challenger",
+      "catalogId": "archives-microfiche-reader",
+      "label": "微缩胶片阅读器",
+      "verdict": "declined",
+      "lineage": "图书馆微缩胶片检索台",
+      "palette": ["#101418", "#9fb4c0"],
+      "materials": ["胶片颗粒", "背光玻璃"],
+      "case": "契合度不足：访客不易与档案检索产生认同。",
+      "kept": "极强的环境沉浸感。"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "品类常规",
+    "thesis": "个人品牌站的标准做法：白底、英雄区、三卡服务、整洁页脚。",
+    "palette": ["#ffffff", "#111827", "#2563eb"],
+    "materials": ["干净网格", "产品截图"],
+    "viewport": "访客最熟悉的排版，做到极致工艺。",
+    "risk": "与所有竞争者无法区分。"
+  },
+  "steer": true
+}
