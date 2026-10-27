@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import './barlow.css';
+@import './silkscreen.css';
 
 /* ============================================================
    MSXOR design tokens — light engineering blueprint
@@ -17,23 +17,23 @@
     'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, 'Courier New', monospace;
 
   /* colors */
-  --color-bg: #f1eee5;
-  --color-bg-2: #faf8f2;
-  --color-surface: #faf8f2;
-  --color-surface-2: #eae6d9;
-  --color-border: #d8d3c4;
-  --color-border-strong: #b5ad99;
-  --color-text-primary: #22342e;
-  --color-text-secondary: #5a6b62;
-  --color-text-muted: #7d8a82;
-  --color-accent: #b25a32;
-  --color-accent-2: #22342e;
-  --color-warning: #b25a32;
-  --color-error: #a9442c;
-  --color-success: #4a7c59;
-  --color-code-bg: #eae6d9;
-  --color-bg-accent: #f5efe2;
-  --color-code-text: #22342e;
+  --color-bg: #ffffff;
+  --color-bg-2: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #ffffff;
+  --color-border: #101010;
+  --color-border-strong: #101010;
+  --color-text-primary: #101010;
+  --color-text-secondary: #101010;
+  --color-text-muted: #101010;
+  --color-accent: #101010;
+  --color-accent-2: #101010;
+  --color-warning: #101010;
+  --color-error: #101010;
+  --color-success: #101010;
+  --color-code-bg: #ffffff;
+  --color-bg-accent: #ffffff;
+  --color-code-text: #101010;
 
   /* legacy aliases (existing components reference these utilities) */
   --font-sans: var(--font-ui);
@@ -93,15 +93,15 @@
   --module-space: clamp(48px, 6vw, 96px);
   --element-space: clamp(16px, 2vw, 32px);
 
-  --radius-sm: 6px;
-  --radius-md: 8px;
+  --radius-sm: 0px;
+  --radius-md: 2px;
 
   --border-default: 1px solid var(--color-border);
   --border-strong: 1px solid var(--color-border-strong);
 
-  --shadow-soft: 0 3px 10px rgb(34 52 46 / 0.08);
-  --shadow-hover: 0 8px 22px rgb(34 52 46 / 0.14);
-  --shadow-focus: 0 0 0 4px rgb(178 90 50 / 0.18);
+  --shadow-soft: none;
+  --shadow-hover: none;
+  --shadow-focus: 0 0 0 3px #ffffff, 0 0 0 5px #101010;
 }
 
 /* ============================================================
@@ -143,9 +143,10 @@ body {
 }
 
 ::selection {
-  background: rgb(178 90 50 / 0.22);
-  color: var(--color-text-primary);
+  background: #101010;
+  color: #ffffff;
 }
+
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
@@ -304,11 +305,11 @@ html.lenis body {
 
 .grid-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(178 90 50 / 0.05), transparent 60%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, #101010, transparent 60%);
 }
 
 .grid-bg-soft {
-  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgb(178 90 50 / 0.04), transparent 60%);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, #101010, transparent 60%);
 }
 
 .divider-dashed {
@@ -482,13 +483,13 @@ html.lenis body {
 .badge-ok {
   border-color: rgb(74 124 89 / 0.45);
   background: rgb(74 124 89 / 0.1);
-  color: #4a7c59;
+  color: #101010;
 }
 
 .badge-accent {
-  border-color: rgb(178 90 50 / 0.4);
-  background: rgb(178 90 50 / 0.08);
-  color: #b25a32;
+  border-color: #101010;
+  background: #101010;
+  color: #101010;
 }
 
 .status-dot {
@@ -538,9 +539,9 @@ html.lenis body {
 }
 
 .btn:hover {
-  border-color: var(--color-text-muted);
-  box-shadow: var(--shadow-soft);
-  transform: translateY(-1px);
+  background: #101010;
+  color: #ffffff;
+  border-color: #101010;
 }
 
 .btn:active {
@@ -713,24 +714,24 @@ html.lenis body {
 .card-featured {
   border-color: var(--color-accent);
   box-shadow:
-    0 0 0 1px rgb(178 90 50 / 0.25),
+    0 0 0 1px #101010,
     var(--shadow-soft);
 }
 
 .card-featured:hover {
-  border-color: #b25a32;
+  border-color: #101010;
   box-shadow:
-    0 0 0 1px rgb(178 90 50 / 0.4),
+    0 0 0 1px #101010,
     var(--shadow-hover);
 }
 
 .row-featured {
   border-left: 1px solid var(--color-border-strong);
-  background: linear-gradient(90deg, rgb(178 90 50 / 0.06), transparent 40%);
+  background: linear-gradient(90deg, #101010, transparent 40%);
 }
 
 .dot-current {
-  box-shadow: 0 0 0 4px rgb(178 90 50 / 0.18);
+  box-shadow: 0 0 0 4px #101010;
 }
 
 /* section tone helpers */
@@ -758,3 +759,57 @@ html.lenis body {
 
 
 
+
+
+
+
+
+
+
+
+/* ============================================================
+   HyperCard stack — card frames, stipple band, painted buttons
+   ============================================================ */
+
+.stack-card {
+  border-top: 2px solid #101010;
+  border-bottom: 2px solid #101010;
+}
+
+.stipple-band {
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='white'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23101010'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23101010'/%3E%3C/svg%3E");
+  background-size: 4px 4px;
+  border-bottom: 1px solid #101010;
+}
+
+.card-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--grid-gap);
+  padding: var(--space-md) var(--gutter);
+  border-top: 1px solid #101010;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-display);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.6em 1em;
+  border: 2px solid #101010;
+  border-radius: 0;
+  background: #ffffff;
+  color: #101010;
+}
+
+.card-btn:hover,
+.card-btn:active {
+  background: #101010;
+  color: #ffffff;
+}

@@ -24,7 +24,7 @@ const navItems = [
   <div class="shell flex items-center justify-between gap-4" style="min-height: var(--header-h);">
     <a
       href={homePath(lang)}
-      class="group flex items-baseline gap-0 font-mono text-sm"
+      class="group flex items-baseline gap-0 font-display text-sm"
       aria-label="MSXOR — home"
     >
       <span class="text-ink-3 transition-colors group-hover:text-ink-2">~/</span><span
@@ -33,7 +33,7 @@ const navItems = [
       <span class="ml-1.5 text-accent">$</span>
     </a>
 
-    <nav class="hidden items-center gap-5 font-mono text-xs text-ink-2 lg:flex" aria-label="Main">
+    <nav class="hidden items-center gap-5 font-display text-xs text-ink lg:flex" aria-label="Main">
       {
         navItems.map((item) => (
           <a class="transition-colors hover:text-accent" href={sectionPath(lang, item.id)}>
@@ -143,12 +143,13 @@ const navItems = [
 
 <style>
   #site-header.scrolled {
-    background: rgb(241 238 229 / 0.9);
+    background: rgb(255 255 255 / 0.94);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-line);
-    box-shadow: 0 2px 8px rgb(34 52 46 / 0.08);
+    border-bottom-width: 2px;
   }
 </style>
+
 
 

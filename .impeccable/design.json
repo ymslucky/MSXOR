@@ -1,24 +1,14 @@
 {
-  "world": "Evolution Garage",
-  "mode": "light-only",
+  "world": "HyperCard Shoebox Stack",
+  "mode": "1-bit-light-only",
   "tokens": {
-    "bg": "#F1EEE5",
-    "bg2": "#FAF8F2",
-    "surface": "#FAF8F2",
-    "surface2": "#EAE6D9",
-    "border": "#D8D3C4",
-    "borderStrong": "#B5AD99",
-    "textPrimary": "#22342E",
-    "textSecondary": "#5A6B62",
-    "textMuted": "#7D8A82",
-    "accent": "#B25A32",
-    "accentDeep": "#9C4A26",
-    "bgAccent": "#F5EFE2",
-    "success": "#4A7C59",
-    "warning": "#B25A32",
-    "error": "#A9442C",
-    "fontDisplay": "Barlow Condensed"
+    "bg": "#FFFFFF",
+    "ink": "#101010",
+    "border": "#101010",
+    "dither": "#787878-stipple-only",
+    "fontDisplay": "Silkscreen",
+    "radius": 0
   },
-  "fonts": ["Barlow Condensed", "Inter Variable", "Noto Sans SC Variable", "JetBrains Mono Variable"],
+  "fonts": ["Silkscreen", "Inter Variable", "Noto Sans SC Variable", "JetBrains Mono Variable"],
   "updated": "2026-10-28"
 }

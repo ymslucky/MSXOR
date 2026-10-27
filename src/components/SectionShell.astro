@@ -1,15 +1,35 @@
 ---
+import { homePath } from '../i18n/ui';
+
+interface CardLink {
+  id: string;
+  label: string;
+}
+
 interface Props {
   id?: string;
+  number?: string;
+  label?: string;
   title: string;
   subtitle?: string;
   lang?: string;
   tone?: 'white' | 'gray' | 'cyan';
   /** Asymmetric split, e.g. '4/8' → header 4 cols, content 8 cols (desktop). */
   split?: '3/9' | '4/8' | '5/7' | '2/10';
+  prev?: CardLink;
+  next?: CardLink;
 }
 
-const { id, title, subtitle, lang, tone = 'white', split = '4/8' } = Astro.props;
+const {
+  id,
+  title,
+  subtitle,
+  lang = 'en',
+  tone = 'white',
+  split = '4/8',
+  prev,
+  next,
+} = Astro.props;
 
 const splitCols: Record<string, string> = {
   '3/9': 'minmax(200px, 3fr) 9fr',
@@ -19,7 +39,8 @@ const splitCols: Record<string, string> = {
 };
 ---
 
-<section id={id} class:list={['section tone-bordered relative scroll-mt-24', `tone-${tone}`]}>
+<section id={id} class:list={['stack-card tone-bordered relative scroll-mt-24', `tone-${tone}`]}>
+  <div class="stipple-band" aria-hidden="true"></div>
   <div class="content-grid">
     <div class="section-split" style={`--split-cols: ${splitCols[split]}`}>
       <header class="section-rail" data-animate>
@@ -31,6 +52,32 @@ const splitCols: Record<string, string> = {
       </div>
     </div>
   </div>
+  <nav class="card-nav" aria-label="Card navigation">
+    {
+      prev ? (
+        <a class="card-btn" href={`#${prev.id}`}>
+          <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M8 1 3 6l5 5" stroke="currentColor" stroke-width="2" />
+          </svg>
+          {prev.label}
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    <a class="card-btn" href={homePath(lang as 'en' | 'zh')}>INDEX</a>
+    {
+      next ? (
+        <a class="card-btn" href={`#${next.id}`}>
+          {next.label}
+          <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M4 1l5 5-5 5" stroke="currentColor" stroke-width="2" />
+          </svg>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+  </nav>
 </section>
-
 

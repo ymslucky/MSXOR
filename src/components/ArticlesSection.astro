@@ -20,6 +20,8 @@ const T = t(lang);
   lang={lang}
   split="3/9"
   tone="gray"
+  prev={{ id: 'projects', label: T.nav.projects }}
+  next={{ id: 'stack', label: T.nav.stack }}
 >
   <div class="flex flex-col gap-4">
     {
@@ -56,3 +58,5 @@ const T = t(lang);
 
   <p class="mt-5 font-mono text-[11px] text-text-muted" data-animate>{T.articles.tbdHint}</p>
 </SectionShell>
+
+
