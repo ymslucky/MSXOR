@@ -1,0 +1,23 @@
+{
+  "world": "Phosphor Noir",
+  "mode": "dark-only",
+  "tokens": {
+    "bg": "#100F0C",
+    "bg2": "#151310",
+    "surface": "#1B1814",
+    "surface2": "#232019",
+    "border": "#2E2A22",
+    "borderStrong": "#453F33",
+    "textPrimary": "#F2EDE2",
+    "textSecondary": "#C4BCAB",
+    "textMuted": "#93897A",
+    "accent": "#F5A524",
+    "accentDeep": "#D98A0B",
+    "bgAccent": "#1E1810",
+    "success": "#7BC96F",
+    "warning": "#F5A524",
+    "error": "#E5645A"
+  },
+  "fonts": ["Inter Variable", "Noto Sans SC Variable", "JetBrains Mono Variable"],
+  "updated": "2026-10-28"
+}
